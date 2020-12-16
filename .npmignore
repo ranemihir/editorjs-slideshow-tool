@@ -1,7 +1,7 @@
-.idea/
+.idea
 .babelrc
 .eslintrc
-dev/
-src/
+dev
+src
 webpack.config.js
 yarn.lock
