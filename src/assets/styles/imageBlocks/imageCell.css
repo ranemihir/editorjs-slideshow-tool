@@ -1,0 +1,33 @@
+.image-cell{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 4px 4px;
+    width: 80px;
+    height: 100px;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
+}
+
+.image-cell img{
+    width: 80px;
+    height: 80px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin: 0px 4px;
+}
+
+.image-cell .image-caption{
+    font-style: normal;
+    font-weight: 500;
+    font-size: 8px;
+    line-height: 12px;
+    color: #808080;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    margin: 0px 4px;
+}

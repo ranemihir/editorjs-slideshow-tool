@@ -80,7 +80,7 @@ export default class SlideshowPlugin {
 	 * @returns {HTMLDivElement}
 	 */
 	render() {
-		return this.ui.render(this.data);
+		return this.ui.render();
 	}
 
 	/**
