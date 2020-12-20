@@ -18,19 +18,14 @@ export default class UI {
 		this.data = data;
 
 		/**
-		 * queue of images which are selected by user.
-		 */
-		this.selectedImages = [];
-
-		/**
 		 * Three primary node elements of image selector:
 		 * 1. Image selection grid (top).
 		 * 2. Selected images queue (middle).
 		 * 3. Bottom toolbar (bottom).
 		 */
 		this.nodes = {
-			imageSelectionGrid: this.createImageSelectionGrid(this.config),
-			selectedImagesQueue: this.createSelectedImagesQueue(this.selectedImages),
+			imageSelectionWrapper: this.createImageSelectionWrapper(this.config),
+			selectedImagesQueue: this.createSelectedImagesQueue(),
 			bottomToolbar: this.createBottomToolbar()
 		};
 
@@ -44,7 +39,7 @@ export default class UI {
 		this.uiComponents = {
 			wrapper: create('div', [this.CSS.main]),
 			imageSelector: this.createImageSelector(
-				this.nodes.imageSelectionGrid,
+				this.nodes.imageSelectionWrapper,
 				this.nodes.selectedImagesQueue,
 				this.nodes.bottomToolbar
 			),
@@ -57,15 +52,15 @@ export default class UI {
 		 * present the image selector
 		 * Otherwise, present the grid or slideshow layout based on the data.
 		 */
-		if (data == {}) {
-			this.wrapper.appendChild(this.uiComponents.imageSelector);
+		if (data == null || data == undefined || data == {}) {
+			this.uiComponents.wrapper.appendChild(this.uiComponents.imageSelector);
 		} else {
 			if (data.layout == 'grid') {
 				this.uiComponents.gridLayout = new GridLayout(data);
-				this.wrapper.appendChild(this.uiComponents.gridLayout);
+				this.uiComponents.wrapper.appendChild(this.uiComponents.gridLayout);
 			} else {
 				this.uiComponents.slideshowLayout = new SlideshowLayout(data);
-				this.wrapper.appendChild(this.uiComponents.slideshowLayout);
+				this.uiComponents.wrapper.appendChild(this.uiComponents.slideshowLayout);
 			}
 		}
 	}
@@ -86,8 +81,12 @@ export default class UI {
 			 * Image selector styles
 			 */
 			imageSelector: 'image-selector',
+			imageSelectionWrapper: 'image-selection-wrapper',
 			imageSelectionGrid: 'image-selection-grid',
-			selectedImages: 'selected-images',
+			selectedImage: 'selected-image',
+			selectedImagesQueue: 'selected-images-queue',
+			deletableImageCellWrapper: 'deletable-image-cell-wrapper',
+			closeButton: 'close-button',
 			bottomToolbar: 'bottom-toolbar',
 			captionTextbox: 'caption-textbox',
 			addToArticleButton: 'add-to-article-button',
@@ -114,9 +113,9 @@ export default class UI {
 	 * 
 	 * @returns {Element}
 	 */
-	createImageSelector(imageSelectionGrid, selectedImagesQueue, bottomToolbar) {
+	createImageSelector(imageSelectionWrapper, selectedImagesQueue, bottomToolbar) {
 		const imageSelector = create('div', [this.CSS.imageSelector], {}, [
-			imageSelectionGrid,
+			imageSelectionWrapper,
 			selectedImagesQueue,
 			bottomToolbar
 		]);
@@ -129,9 +128,21 @@ export default class UI {
 	 * 
 	 * @returns {Element}
 	 */
-	createImageSelectionGrid(config) {
-		const imageSelectionGrid = create('div', [this.CSS.imageSelectionGrid], {} /*, !append image cells*/);
-		return imageSelectionGrid;
+	createImageSelectionWrapper(config) {
+		const imageSelectionGrid = create('div', [this.CSS.imageSelectionGrid]);
+
+		for (let i = 0; i < config.imageData.length; i++) {
+			const { name, caption } = config.imageData[i];
+			const imageSrc = config.cloudinaryBaseUrl + name;
+			const imageCell = this.createImageCell(imageSrc, caption);
+			imageSelectionGrid.appendChild(imageCell);
+		}
+
+		const imageSelectionWrapper = create('div', [this.CSS.imageSelectionWrapper], {}, [
+			imageSelectionGrid
+		]);
+
+		return imageSelectionWrapper;
 	}
 
 	/**
@@ -139,8 +150,11 @@ export default class UI {
 	 * 
 	 * @returns {Element}
 	 */
-	createSelectedImagesQueue(selectedImages) {
-		const selectedImagesQueue = create('div', [this.CSS.selectedImages], {}, selectedImages);
+	createSelectedImagesQueue() {
+		const selectedImagesQueue = create('div', [this.CSS.selectedImagesQueue], {
+			style: 'display: none;'
+		});
+
 		return selectedImagesQueue;
 	}
 
@@ -153,14 +167,16 @@ export default class UI {
 		/**
 		 * Creates a textbox for users to write a caption on bottom left corner.
 		 */
-		const captionTextbox = create('input', [this.captionTextbox], {
+		const captionTextbox = create('input', [this.CSS.captionTextbox], {
 			type: 'text',
-			placeholder: 'Write a caption...'
+			placeholder: 'Write a caption'
 		});
 		/**
 		 * Creates 'Add to Article' button on bottom right corner of image selector.
 		 */
-		const addToArticleButton = create('button', [this.CSS.addToArticleButton]);
+		const addToArticleButton = create('button', [this.CSS.addToArticleButton], {}, [
+			document.createTextNode('Add to Article')
+		]);
 
 		/**
 		 * Creates bottom toolbar and appends the caption textbox and 'Add to Article' button.
@@ -183,8 +199,18 @@ export default class UI {
 	 */
 	createImageCell(imageSrc, caption) {
 		const image = create('img', [], {
-			src: imageSrc
+			src: imageSrc,
+			alt: 'Image Cell'
 		});
+
+		/**
+		 * Length of caption in image cell
+		 */
+		const CHAR_LIMIT_FOR_IMAGE_CELL = 10;
+
+		if (caption.length > CHAR_LIMIT_FOR_IMAGE_CELL) {
+			caption = caption.slice(0, CHAR_LIMIT_FOR_IMAGE_CELL) + '...';
+		}
 
 		const imageCaption = create('span', [this.CSS.imageCaption], {}, [
 			document.createTextNode(caption)
@@ -195,21 +221,84 @@ export default class UI {
 			imageCaption
 		]);
 
-		return imageCell;
-	}
+		const classObject = this;
 
-	/**
-	 * Adds all image cells created to the image selection grid.
-	 * 
-	 * @param {object} config 
-	 */
-	addAllImageCellsToSelectionGrid(config) {
-		for (let i = 0; i < config.imageData.length; i++) {
-			const { imageName, caption } = config.imageData[i];
-			const imageSrc = config.cloudinaryBaseUrl + imageName;
-			const imageCell = this.createImageCell(imageSrc, caption);
-			this.nodes.imageSelectionGrid.appendChild(imageCell);
-		}
+		/**
+		 * Adds image cells to selected images queue on click.
+		 */
+		imageCell.addEventListener('click', function () {
+			if (this.classList.contains(classObject.CSS.selectedImage)) {
+				return;
+			}
+
+			/**
+			 * If this is the first image cell being added, display the selectedimagesQueue.
+			 */
+			if (classObject.nodes.selectedImagesQueue.style.display == 'none') {
+				classObject.nodes.selectedImagesQueue.style.display = 'flex';
+			}
+
+			const imageCellIndex = Array.from(classObject.nodes.imageSelectionWrapper.children[0].children).indexOf(this);
+			/**
+			 * Clone the image cell which is to be appended in the selectedImagesQueue.
+			 */
+			const imageCellClone = this.cloneNode(true);
+
+			/**
+			 * Set cursor to default
+			 */
+			imageCellClone.style.cursor = 'default';
+
+			/**
+			 * Represent the image as selected in the image selection grid using a border.
+			 * Also used to reference the selected image.
+			 */
+			this.classList.add(classObject.CSS.selectedImage);
+
+			/**
+			 * Create close button the top-right corner.
+			 */
+			const closeButton = create('div', [classObject.CSS.closeButton]);
+
+			/**
+			 * Remove selected image from the selectedImageQueue.
+			 */
+			closeButton.addEventListener('click', function () {
+				/**
+				 * Remove the selection from the image selection grid.
+				 */
+				imageCell.classList.remove(classObject.CSS.selectedImage);
+
+				/**
+				 * Remove the deletable image cell from the selectedImageQueue.
+				 */
+				classObject.nodes.selectedImagesQueue.removeChild(closeButton.parentNode);
+
+				/**
+				 * If no image cells are remaining in the selectedImagesQueue, set display to none.
+				 */
+				if (classObject.nodes.selectedImagesQueue.children.length == 0) {
+					classObject.nodes.selectedImagesQueue.style.display = 'none';
+				}
+			});
+
+			/**
+			 * Create the image cell to be added in the selectedImagesQueue.
+			 */
+			const deletableImageCellWrapper = create('div', [classObject.CSS.deletableImageCellWrapper], {
+				id: imageCellIndex
+			}, [
+				closeButton,
+				imageCellClone
+			]);
+
+			/**
+			 * Append the deletable image cell to the selectedImagesQueue.
+			 */
+			classObject.nodes.selectedImagesQueue.appendChild(deletableImageCellWrapper);
+		});
+
+		return imageCell;
 	}
 
 }

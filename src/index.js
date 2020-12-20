@@ -9,7 +9,7 @@ import SlideshowIcon from './assets/svg/slideshowIcon.svg';
 import UI from './ui/index';
 import Tunes from './tunes';
 // eslint-disable-next-line
-import css from './index.css';
+import css from './assets/styles/index.css';
 
 /**
  * Slideshow plugin primary API
@@ -45,7 +45,7 @@ export default class SlideshowPlugin {
 		 * Tool's initial config
 		 */
 		this.config = {
-			imageData: config.imageData || {},
+			imageData: config.imageData || [],
 			cloudinaryBaseUrl: config.cloudinaryBaseUrl || '',
 		};
 
@@ -91,7 +91,7 @@ export default class SlideshowPlugin {
 	 * @returns {Element}
 	 */
 	renderSettings() {
-		return this.tunes.render(this.data.layout);
+		// return this.tunes.render(this.data.layout);
 	}
 
 	/**
