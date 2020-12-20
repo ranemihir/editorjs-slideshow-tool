@@ -188,7 +188,7 @@ export default class UI {
 		 * Create the default layout by default on pressing 'Add to Article Button'.
 		 */
 		addToArticleButton.addEventListener('click', function () {
-			const caption = captionTextbox.nodeValue || '';
+			const caption = this.parentNode.firstChild.value || '';
 			const selectedImages = Array.from(classObject.nodes.selectedImagesQueue.children);
 
 			/**
@@ -205,7 +205,7 @@ export default class UI {
 					caption
 				});
 
-				classObject.uiComponents.wrapper.appendChild(classObject.uiComponents.gridLayout);
+				classObject.uiComponents.wrapper.appendChild(classObject.uiComponents.gridLayout.render());
 			} else {
 				/**
 				 * Creates and appends slideshow layout to the main plugin wrapper.
@@ -215,7 +215,7 @@ export default class UI {
 					caption
 				});
 
-				classObject.uiComponents.wrapper.appendChild(classObject.uiComponents.slideshowLayout);
+				classObject.uiComponents.wrapper.appendChild(classObject.uiComponents.slideshowLayout.render());
 			}
 		});
 

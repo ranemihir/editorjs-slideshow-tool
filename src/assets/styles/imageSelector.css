@@ -56,7 +56,7 @@
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    padding: 17px 16px 16px;
+    padding: 16px 16px 18px;
     background: #FAFAFA; 
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
     border-top: 1px solid var(--grey);
@@ -109,6 +109,7 @@
     font-style: normal;
     font-size: 14px;
     flex-grow: 1;
+    color: #808080;
 }
 
 .caption-textbox:focus, .add-to-article-button:focus{
