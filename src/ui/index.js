@@ -179,6 +179,47 @@ export default class UI {
 		]);
 
 		/**
+		 * 'grid' or 'slideshow' layout are the 2 options.
+		 */
+		const DEFAULT_LAYOUT = 'grid';
+
+		const classObject = this;
+		/**
+		 * Create the default layout by default on pressing 'Add to Article Button'.
+		 */
+		addToArticleButton.addEventListener('click', function () {
+			const caption = captionTextbox.nodeValue || '';
+			const selectedImages = Array.from(classObject.nodes.selectedImagesQueue.children);
+
+			/**
+			 * Removes image selector from the main plugin wrapper.
+			 */
+			classObject.uiComponents.wrapper.removeChild(classObject.uiComponents.wrapper.firstChild);
+
+			if (DEFAULT_LAYOUT == 'grid') {
+				/**
+				 * Creates and appends grid layout to the main plugin wrapper.
+				 */
+				classObject.uiComponents.gridLayout = new GridLayout({
+					selectedImages,
+					caption
+				});
+
+				classObject.uiComponents.wrapper.appendChild(classObject.uiComponents.gridLayout);
+			} else {
+				/**
+				 * Creates and appends slideshow layout to the main plugin wrapper.
+				 */
+				classObject.uiComponents.slideshowLayout = new SlideshowLayout({
+					selectedImages,
+					caption
+				});
+
+				classObject.uiComponents.wrapper.appendChild(classObject.uiComponents.slideshowLayout);
+			}
+		});
+
+		/**
 		 * Creates bottom toolbar and appends the caption textbox and 'Add to Article' button.
 		 */
 		const bottomToolbar = create('div', [this.CSS.bottomToolbar], {}, [
