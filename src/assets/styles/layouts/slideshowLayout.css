@@ -2,19 +2,21 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 16px 0 16px 16px;
 }
 
 .slideshow-layout-wrapper .slideshow-layout{
-    white-space: nowrap;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    height: 320px;
+
     overflow-x: scroll;
     margin: 0;
     padding: 0;
 }
 
 .slideshow-layout-wrapper .slideshow-layout .image-box-wrapper{
-    display: inline-block;
-    height: 360px;
+    flex: none;
     width: 320px;
 }
 

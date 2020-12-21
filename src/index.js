@@ -1,13 +1,11 @@
 /**
- * The plugin structure is split into 3 parts: 
+ * The plugin structure is split into 2 parts: 
  * 1) index.js — Plugin's primary interface, core API and methods for working with the data.
- * 2) tunes.js — Working with the Editor's Block Tunes API.
- * 3) ui.js — Used for UI manipulations: render, showing preloader, etc.
+ * 2) ui.js — Used for UI manipulations: render, showing preloader, etc.
  */
 
 import SlideshowIcon from './assets/svg/slideshowIcon.svg';
 import UI from './ui/index';
-import Tunes from './tunes';
 // eslint-disable-next-line
 import css from './assets/styles/index.css';
 
@@ -61,15 +59,6 @@ export default class SlideshowPlugin {
 			api,
 			config: this.config
 		});
-
-		/**
-		 * Module for working with tunes
-		 */
-		this.tunes = new Tunes({
-			api,
-			actions: this.config.actions,
-			onChange: (tuneName) => this.tuneToggled(tuneName),
-		});
 	}
 
 	/**
@@ -84,14 +73,14 @@ export default class SlideshowPlugin {
 	}
 
 	/**
-	 * Makes buttons with tunes: add background, add border, stretch image
-	 *
+	 * Empty blockSetting
+	 * 
 	 * @public
 	 *
 	 * @returns {Element}
 	 */
 	renderSettings() {
-		// return this.tunes.render(this.data.layout);
+		return document.createElement('div');
 	}
 
 	/**

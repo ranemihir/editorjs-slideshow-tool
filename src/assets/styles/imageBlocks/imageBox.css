@@ -33,6 +33,7 @@
 }
 
 .image-box-wrapper .caption-container{
+    word-wrap: break-word;
     cursor: default;
     
     position: absolute;
