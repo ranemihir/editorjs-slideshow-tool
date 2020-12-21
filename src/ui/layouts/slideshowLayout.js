@@ -8,7 +8,7 @@ export default class SlideshowLayout {
 	/**
 	 * @param {object} ui - image tool Ui module
 	 * @param {object} ui.api - Editor.js API
-	 * @param {ImageConfig} ui.config - user config
+	 * 
 	 */
 	constructor({ api, config }) {
 		this.api = api;

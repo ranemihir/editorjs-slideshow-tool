@@ -189,7 +189,22 @@ export default class UI {
 		 */
 		addToArticleButton.addEventListener('click', function () {
 			const caption = this.parentNode.firstChild.value || '';
-			const selectedImages = Array.from(classObject.nodes.selectedImagesQueue.children);
+			const selectedImageCells = Array.from(classObject.nodes.selectedImagesQueue.children);
+
+			const selectedImages = [];
+
+			/**
+			 * Add {name, caption} object in selected images to be sent to layout class.
+			 */
+			selectedImageCells.forEach(function (node) {
+				/**
+				 * id property represents the index of the image cell.
+				 */
+				const index = parseInt(node.id);
+				const selectedImage = classObject.config.imageData[index];
+
+				selectedImages.push(selectedImage);
+			});
 
 			/**
 			 * Removes image selector from the main plugin wrapper.
@@ -241,7 +256,7 @@ export default class UI {
 	createImageCell(imageSrc, caption) {
 		const image = create('img', [], {
 			src: imageSrc,
-			alt: 'Image Cell'
+			alt: 'Image Cell - ' + caption
 		});
 
 		/**

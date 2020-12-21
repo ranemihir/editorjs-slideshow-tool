@@ -1,0 +1,25 @@
+.slideshow-layout-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    padding: 16px 0 16px 16px;
+}
+
+.slideshow-layout-wrapper .slideshow-layout{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: stretch;
+}
+
+.slideshow-layout-wrapper .caption{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    margin: 8px 16px 0 0;
+    padding: 0 2px;
+    text-align: center;
+    color: #808080
+}
