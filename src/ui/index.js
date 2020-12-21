@@ -181,7 +181,7 @@ export default class UI {
 		/**
 		 * 'grid' or 'slideshow' layout are the 2 options.
 		 */
-		const DEFAULT_LAYOUT = 'grid';
+		const DEFAULT_LAYOUT = 'slideshow';
 
 		const classObject = this;
 		/**

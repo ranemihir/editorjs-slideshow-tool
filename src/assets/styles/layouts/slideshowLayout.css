@@ -2,15 +2,20 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: stretch;
     padding: 16px 0 16px 16px;
 }
 
 .slideshow-layout-wrapper .slideshow-layout{
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    align-items: stretch;
+    white-space: nowrap;
+    overflow-x: scroll;
+    margin: 0;
+    padding: 0;
+}
+
+.slideshow-layout-wrapper .slideshow-layout .image-box-wrapper{
+    display: inline-block;
+    height: 360px;
+    width: 320px;
 }
 
 .slideshow-layout-wrapper .caption{
@@ -23,3 +28,4 @@
     text-align: center;
     color: #808080
 }
+
