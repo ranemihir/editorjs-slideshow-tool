@@ -479,6 +479,8 @@ export default class UI {
 			 * Append the deletable image cell to the selectedImagesQueue.
 			 */
 			classObject.nodes.selectedImagesQueue.appendChild(deletableImageCellWrapper);
+
+			deletableImageCellWrapper.scrollIntoView(false);
 		});
 
 		return imageCell;
