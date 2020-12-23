@@ -22,6 +22,11 @@ export default class UI {
 		this.data = data;
 
 		/**
+		 * Creates selectedImageQueue wrapper.
+		 */
+		const selectedImagesQueueWrapper = this.createSelectedImagesQueue();
+
+		/**
 		 * Three primary node elements of image selector:
 		 * 1. Image selection grid (top).
 		 * 2. Selected images queue (middle).
@@ -29,7 +34,9 @@ export default class UI {
 		 */
 		this.nodes = {
 			imageSelectionWrapper: this.createImageSelectionWrapper(this.config),
-			selectedImagesQueue: this.createSelectedImagesQueue(),
+			imageSelectorTitle: this.createImageSelectorTitle(),
+			selectedImagesQueueWrapper: selectedImagesQueueWrapper,
+			selectedImagesQueue: selectedImagesQueueWrapper.lastChild,
 			bottomToolbar: this.createBottomToolbar()
 		};
 
@@ -49,8 +56,9 @@ export default class UI {
 		this.uiComponents = {
 			wrapper: create('div', [this.CSS.main]),
 			imageSelector: this.createImageSelector(
+				this.nodes.imageSelectorTitle,
 				this.nodes.imageSelectionWrapper,
-				this.nodes.selectedImagesQueue,
+				this.nodes.selectedImagesQueueWrapper,
 				this.nodes.bottomToolbar
 			),
 			gridLayout: null,
@@ -91,9 +99,12 @@ export default class UI {
 			 * Image selector styles
 			 */
 			imageSelector: 'image-selector',
+			imageSelectorTitle: 'image-selector-title',
 			imageSelectionWrapper: 'image-selection-wrapper',
 			imageSelectionGrid: 'image-selection-grid',
 			selectedImage: 'selected-image',
+			selectedImagesQueueWrapper: 'selected-images-queue-wrapper',
+			selectedImagesQueueTitle: 'selected-images-queue-title',
 			selectedImagesQueue: 'selected-images-queue',
 			deletableImageCellWrapper: 'deletable-image-cell-wrapper',
 			closeButton: 'close-button',
@@ -123,14 +134,26 @@ export default class UI {
 	}
 
 	/**
+	 * Creates and returns image selector title - 'Select Pictures'.
+	 */
+	createImageSelectorTitle() {
+		const imageSelectorTitle = create('div', [this.CSS.imageSelectorTitle], {}, [
+			document.createTextNode('Select Pictures')
+		]);
+
+		return imageSelectorTitle;
+	}
+
+	/**
 	 * Creates and returns image selctor component
 	 * 
 	 * @returns {Element}
 	 */
-	createImageSelector(imageSelectionWrapper, selectedImagesQueue, bottomToolbar) {
+	createImageSelector(imageSelectorTitle, imageSelectionWrapper, selectedImagesQueueWrapper, bottomToolbar) {
 		const imageSelector = create('div', [this.CSS.imageSelector], {}, [
+			imageSelectorTitle,
 			imageSelectionWrapper,
-			selectedImagesQueue,
+			selectedImagesQueueWrapper,
 			bottomToolbar
 		]);
 
@@ -165,11 +188,20 @@ export default class UI {
 	 * @returns {Element}
 	 */
 	createSelectedImagesQueue() {
-		const selectedImagesQueue = create('div', [this.CSS.selectedImagesQueue], {
-			style: 'display: none;'
-		});
+		const selectedImagesQueueTitle = create('div', [this.CSS.selectedImagesQueueTitle], {}, [
+			document.createTextNode('Edit Selection')
+		]);
 
-		return selectedImagesQueue;
+		const selectedImagesQueue = create('div', [this.CSS.selectedImagesQueue]);
+
+		const selectedImagesQueueWrapper = create('div', [this.CSS.selectedImagesQueueWrapper], {
+			style: 'display: none;'
+		}, [
+			selectedImagesQueueTitle,
+			selectedImagesQueue
+		]);
+
+		return selectedImagesQueueWrapper;
 	}
 
 	/**
@@ -371,8 +403,8 @@ export default class UI {
 			/**
 			 * If this is the first image cell being added, display the selectedimagesQueue.
 			 */
-			if (classObject.nodes.selectedImagesQueue.style.display == 'none') {
-				classObject.nodes.selectedImagesQueue.style.display = 'flex';
+			if (classObject.nodes.selectedImagesQueueWrapper.style.display == 'none') {
+				classObject.nodes.selectedImagesQueueWrapper.style.display = 'flex';
 			}
 
 			const imageCellIndex = Array.from(classObject.nodes.imageSelectionWrapper.children[0].children).indexOf(this);
@@ -416,7 +448,7 @@ export default class UI {
 				 * If no image cells are remaining in the selectedImagesQueue, set display to none.
 				 */
 				if (classObject.nodes.selectedImagesQueue.children.length == 0) {
-					classObject.nodes.selectedImagesQueue.style.display = 'none';
+					classObject.nodes.selectedImagesQueueWrapper.style.display = 'none';
 				}
 			});
 
