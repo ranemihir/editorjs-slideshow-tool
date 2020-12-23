@@ -1,0 +1,40 @@
+.error-wrapper{
+    cursor: default;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--grey);
+    border-radius: 3px;
+    padding: 4px 8px 4px 16px;
+    box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.25);
+
+    background-color: #FFFFFF;
+    z-index: 1;
+
+    margin-top: 8px;
+}
+
+.error-wrapper .error-message-container{
+    cursor: default;
+    color: var(--red);
+    margin-right: 8px;
+    font-size: 12px;
+    line-height: 12px;
+    font-weight: 400;
+}
+
+.error-wrapper .ok-button{
+    cursor: pointer;
+    color: var(--primary);
+    font-size: 12px;
+    line-height: 12px;
+    font-weight: 500;
+    padding: 8px;
+    border-radius: 3px;
+}
+
+.error-wrapper .ok-button:hover{
+    background-color: #EFEFEF;
+}

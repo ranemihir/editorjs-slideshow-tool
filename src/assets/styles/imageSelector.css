@@ -96,7 +96,7 @@
     height: 20px;
     width: 20px;
     border-radius: 50%;
-    background-color: #D60202;
+    background-color: var(--red);
     text-align: center;
 }
 

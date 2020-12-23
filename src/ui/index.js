@@ -4,6 +4,7 @@ import GridLayoutIcon from './../assets/svg/gridLayoutIcon.svg';
 
 import GridLayout from './layouts/gridLayout';
 import SlideshowLayout from './layouts/slideshowLayout';
+import Error from './error';
 import { create } from './utils';
 
 /**
@@ -55,6 +56,7 @@ export default class UI {
 		 */
 		this.uiComponents = {
 			wrapper: create('div', [this.CSS.main]),
+			errorStack: create('div', [this.CSS.errorStack]),
 			imageSelector: this.createImageSelector(
 				this.nodes.imageSelectorTitle,
 				this.nodes.imageSelectionWrapper,
@@ -64,6 +66,11 @@ export default class UI {
 			gridLayout: null,
 			slideshowLayout: null
 		};
+
+		/**
+		 * Append error stack.
+		 */
+		this.uiComponents.wrapper.appendChild(this.uiComponents.errorStack);
 
 		/**
 		 * If there is no data provided on initialisation,
@@ -94,7 +101,7 @@ export default class UI {
 			 * Wrapper styles
 			 */
 			main: 'main',
-
+			errorStack: 'error-stack',
 			/**
 			 * Image selector styles
 			 */
@@ -298,6 +305,18 @@ export default class UI {
 		 * Create the default layout by default on pressing 'Add to Article Button'.
 		 */
 		addToArticleButton.addEventListener('click', function () {
+			if (classObject.nodes.selectedImagesQueue.children.length <= 1) {
+				if (classObject.uiComponents.errorStack.children.length == 0) {
+					const error = new Error({
+						errorMessage: 'Select 2 or more pictures inorder to add to article'
+					}).render();
+
+					classObject.uiComponents.errorStack.appendChild(error);
+				}
+
+				return;
+			}
+
 			const caption = this.parentNode.firstChild.value || '';
 			const selectedImageCells = Array.from(classObject.nodes.selectedImagesQueue.children);
 
