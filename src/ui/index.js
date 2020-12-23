@@ -1,3 +1,7 @@
+import CloseButtonIcon from './../assets/svg/closeButtonIcon.svg';
+import SlideshowLayoutIcon from './../assets/svg/slideshowLayoutIcon.svg';
+import GridLayoutIcon from './../assets/svg/gridLayoutIcon.svg';
+
 import GridLayout from './layouts/gridLayout';
 import SlideshowLayout from './layouts/slideshowLayout';
 import { create } from './utils';
@@ -28,6 +32,12 @@ export default class UI {
 			selectedImagesQueue: this.createSelectedImagesQueue(),
 			bottomToolbar: this.createBottomToolbar()
 		};
+
+		/**
+		 * The property stores the selected layout by user: 'slideshow' or 'grid'
+		 * The default is 'slideshow'.
+		 */
+		this.selectedLayout = 'slideshow';
 
 		/**
 		 * Four primary UI components of the plugin:
@@ -88,7 +98,11 @@ export default class UI {
 			deletableImageCellWrapper: 'deletable-image-cell-wrapper',
 			closeButton: 'close-button',
 			bottomToolbar: 'bottom-toolbar',
-			captionTextbox: 'caption-textbox',
+			layoutSelector: 'layout-selector',
+			layoutSelectorOption: 'layout-selector-option',
+			selectedLayoutOption: 'selected-layout-option',
+			unselectedLayoutOption: 'unselected-layout-option',
+			layoutSelectorOptionText: 'layout-selector-option-text',
 			addToArticleButton: 'add-to-article-button',
 			/**
 			 * Image cell styles
@@ -164,13 +178,83 @@ export default class UI {
 	 * @returns {Element}
 	 */
 	createBottomToolbar() {
+		const classObject = this;
+
 		/**
-		 * Creates a textbox for users to write a caption on bottom left corner.
+		 * Creates a container for slideshow option selector text
 		 */
-		const captionTextbox = create('input', [this.CSS.captionTextbox], {
-			type: 'text',
-			placeholder: 'Write a caption'
+		const slideshowLayoutSelectorOptionText = create('div', [this.CSS.layoutSelectorOptionText], {}, [
+			document.createTextNode('Slideshow')
+		]);
+
+		/**
+		 * Creates slideshow layout selector
+		 */
+		const slideshowLayoutSelectorOption = create('div', [this.CSS.layoutSelectorOption], {}, [
+			slideshowLayoutSelectorOptionText
+		]);
+
+		slideshowLayoutSelectorOption.style.borderRadius = '3px 0px 0px 3px';
+
+		/**
+		 * Append slideshow layout icon.
+		 */
+		slideshowLayoutSelectorOption.innerHTML += SlideshowLayoutIcon;
+
+		slideshowLayoutSelectorOption.addEventListener('click', function () {
+			classObject.selectedLayout = 'slideshow';
+
+			this.classList.add(classObject.CSS.selectedLayoutOption);
+			this.classList.remove(classObject.CSS.unselectedLayoutOption);
+
+			gridLayoutSelectorOption.classList.remove(classObject.CSS.selectedLayoutOption);
+			gridLayoutSelectorOption.classList.add(classObject.CSS.unselectedLayoutOption);
 		});
+
+		/**
+		 * Creates a container for grid option selector text
+		 */
+		const gridLayoutSelectorOptionText = create('div', [this.CSS.layoutSelectorOptionText], {}, [
+			document.createTextNode('Grid')
+		]);
+
+		/**
+		 * Creates grid layout selector
+		 */
+		const gridLayoutSelectorOption = create('div', [this.CSS.layoutSelectorOption], {}, [
+			gridLayoutSelectorOptionText
+		]);
+
+		gridLayoutSelectorOption.style.borderRadius = '0px 3px 3px 0px';
+
+		/**
+		 * Append grid layout icon.
+		 */
+		gridLayoutSelectorOption.innerHTML += GridLayoutIcon;
+
+		gridLayoutSelectorOption.addEventListener('click', function () {
+			classObject.selectedLayout = 'grid';
+
+			this.classList.add(classObject.CSS.selectedLayoutOption);
+			this.classList.remove(classObject.CSS.unselectedLayoutOption);
+
+			slideshowLayoutSelectorOption.classList.remove(classObject.CSS.selectedLayoutOption);
+			slideshowLayoutSelectorOption.classList.add(classObject.CSS.unselectedLayoutOption);
+		});
+
+		/**
+		 * Default selected layout is slideshow.
+		 */
+		slideshowLayoutSelectorOption.classList.add(this.CSS.selectedLayoutOption);
+
+		/**
+		 * Creates a layout selector for selecting between grid and slideshow layout.
+		 */
+		const layoutSelector = create('div', [this.CSS.layoutSelector], {}, [
+			slideshowLayoutSelectorOption,
+			gridLayoutSelectorOption
+		]);
+
 		/**
 		 * Creates 'Add to Article' button on bottom right corner of image selector.
 		 */
@@ -178,12 +262,6 @@ export default class UI {
 			document.createTextNode('Add to Article')
 		]);
 
-		/**
-		 * 'grid' or 'slideshow' layout are the 2 options.
-		 */
-		const DEFAULT_LAYOUT = 'slideshow';
-
-		const classObject = this;
 		/**
 		 * Create the default layout by default on pressing 'Add to Article Button'.
 		 */
@@ -211,7 +289,10 @@ export default class UI {
 			 */
 			classObject.uiComponents.wrapper.removeChild(classObject.uiComponents.wrapper.firstChild);
 
-			if (DEFAULT_LAYOUT == 'grid') {
+			/**
+			 * Creates layout based on selecte doption by user.
+			 */
+			if (classObject.selectedLayout == 'grid') {
 				/**
 				 * Creates and appends grid layout to the main plugin wrapper.
 				 */
@@ -238,7 +319,7 @@ export default class UI {
 		 * Creates bottom toolbar and appends the caption textbox and 'Add to Article' button.
 		 */
 		const bottomToolbar = create('div', [this.CSS.bottomToolbar], {}, [
-			captionTextbox,
+			layoutSelector,
 			addToArticleButton
 		]);
 
@@ -315,6 +396,7 @@ export default class UI {
 			 * Create close button the top-right corner.
 			 */
 			const closeButton = create('div', [classObject.CSS.closeButton]);
+			closeButton.innerHTML += CloseButtonIcon;
 
 			/**
 			 * Remove selected image from the selectedImageQueue.

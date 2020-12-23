@@ -75,6 +75,21 @@
     width: 20px;
     border-radius: 50%;
     background-color: #D60202;
+    text-align: center;
+}
+
+.image-selector .selected-images-queue .close-button svg{
+    position: relative;
+    height: 12px;
+    width: 12px;
+    color: #FFFFFF;
+    z-index: 1;
+}
+
+@media only screen and (min-width: 600px) {
+    .image-selector .selected-images-queue .close-button svg{
+        top: -1px;
+    }
 }
 
 .image-selector .selected-images-queue .deletable-image-cell-wrapper{
@@ -99,26 +114,44 @@
     border-top: 1px solid var(--grey);
 }
 
-.image-selector .bottom-toolbar .caption-textbox{
-    border: 0.03px solid var(--grey);
-    box-sizing: border-box; 
-    filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.05));
+.image-selector .bottom-toolbar .layout-selector{
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
     border-radius: 4px;
-    padding: 4px 4px 4px 8px;
-    margin-right: 8px;
+}
+
+.image-selector .bottom-toolbar .layout-selector .layout-selector-option{
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 8px;
+    background-color: #E5E5E5;
+}
+
+.image-selector .bottom-toolbar .layout-selector .selected-layout-option{
+    background-color: var(--primary);
+    color: #FFFFFF;
+}
+
+.image-selector .bottom-toolbar .layout-selector .unselected-layout-option{
+    background-color: #E5E5E5;
+    color: #000000;
+}
+
+.image-selector .bottom-toolbar .layout-selector .layout-selector-option .layout-selector-option-text{
+    cursor: pointer;
     font-style: normal;
-    font-size: 14px;
-    flex-grow: 1;
-    color: #808080;
-}
-
-.caption-textbox:focus, .add-to-article-button:focus{
-    outline: none;
-}
-
-::placeholder {
-    color: var(--grey);
-    opacity: 1;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    margin-right: 4px;
 }
 
 .image-selector .bottom-toolbar .add-to-article-button{
@@ -132,4 +165,8 @@
     font-weight: 600;
     font-size: 14px;
     line-height: 16px;
+}
+
+.add-to-article-button:focus{
+    outline: none;
 }

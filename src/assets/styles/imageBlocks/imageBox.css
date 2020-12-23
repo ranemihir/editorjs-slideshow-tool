@@ -12,8 +12,6 @@
     object-fit:cover;
 
     border-radius: 2px;
-
-    z-index: 0;
 }
 
 .image-box-wrapper .faded-background{
@@ -29,7 +27,6 @@
     border-radius: 2px;
 
     background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 97.4%);
-    z-index: 1;
 }
 
 .image-box-wrapper .caption-container{
@@ -52,7 +49,6 @@
     box-shadow: 4px 4px 0px 0px #000000 8% inset;
 
     padding: 16px;
-    z-index: 2;
 }
 
 .image-box-wrapper:hover .faded-background{
