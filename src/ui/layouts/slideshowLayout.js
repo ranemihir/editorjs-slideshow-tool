@@ -1,4 +1,5 @@
 import ImageBox from './../imageBlocks/imageBox';
+import Caption from './../components/caption';
 import { create } from './../utils';
 
 /**
@@ -6,14 +7,11 @@ import { create } from './../utils';
  */
 export default class SlideshowLayout {
 	/**
-	 * @param {object} ui - image tool Ui module
-	 * @param {Array[object]} ui.selectedImages - object - image name and caption
-	 * @param {ImageConfig} ui.caption - caption for layout
+	 * @param {Array[object]} selectedImages - object - image name and caption
 	 */
-	constructor({ cloudinaryBaseUrl, selectedImages, caption }) {
+	constructor({ cloudinaryBaseUrl, selectedImages }) {
 		this.cloudinaryBaseUrl = cloudinaryBaseUrl || '';
 		this.selectedImages = selectedImages;
-		this.caption = caption;
 
 		this.nodes = this.createSlideshowLayout(this.cloudinaryBaseUrl, this.selectedImages, this.caption);
 	}
@@ -27,7 +25,9 @@ export default class SlideshowLayout {
 		return {
 			wrapper: 'slideshow-layout-wrapper',
 			slideshowLayout: 'slideshow-layout',
-			caption: 'caption'
+			captionWrapper: 'caption-wrapper',
+			captionEdit: 'caption-edit',
+			captionInout: 'caption-input'
 		};
 	}
 
@@ -46,7 +46,7 @@ export default class SlideshowLayout {
 	 * 
 	 * @returns {Element} 
 	 */
-	createSlideshowLayout(cloudinaryBaseUrl, images, caption) {
+	createSlideshowLayout(cloudinaryBaseUrl, images) {
 		/**
 		 * Creates the main slideshow layout.
 		 */
@@ -58,24 +58,22 @@ export default class SlideshowLayout {
 		this.addImageBoxesToSlideshowLayout(cloudinaryBaseUrl, images, slideshowLayout);
 
 		/**
-		 * Creates caption container for storing caption
+		 * Creates caption wrapper for storing and editing caption
 		 */
-		const captionContainer = create('div', [this.CSS.caption], {}, [
-			document.createTextNode(caption)
-		]);
+		const captionWrapper = new Caption().render();
 
 		/**
 		 * Appends all nodes to the wrapper.
 		 */
 		const wrapper = create('div', [this.CSS.wrapper], {}, [
 			slideshowLayout,
-			captionContainer
+			captionWrapper
 		]);
 
 		return {
 			wrapper: wrapper,
 			slideshowLayout: slideshowLayout,
-			caption: captionContainer
+			captionWrapper: captionWrapper
 		};
 	}
 

@@ -1,4 +1,5 @@
 import ImageBox from './../imageBlocks/imageBox';
+import Caption from './../components/caption';
 import { create } from './../utils';
 
 /**
@@ -10,12 +11,11 @@ export default class GridLayout {
 	 * @param {Array[object]} ui.selectedImages - object - image name and caption
 	 * @param {ImageConfig} ui.caption - caption for layout
 	 */
-	constructor({ cloudinaryBaseUrl, selectedImages, caption }) {
+	constructor({ cloudinaryBaseUrl, selectedImages }) {
 		this.cloudinaryBaseUrl = cloudinaryBaseUrl || '';
 		this.selectedImages = selectedImages;
-		this.caption = caption;
 
-		this.nodes = this.createGridLayout(this.cloudinaryBaseUrl, this.selectedImages, this.caption);
+		this.nodes = this.createGridLayout(this.cloudinaryBaseUrl, this.selectedImages);
 	}
 
 	/**
@@ -43,11 +43,10 @@ export default class GridLayout {
 	 * Creates and returns main grid layout
 	 * 
 	 * @param {Array[object]} images - all selected images {name, caption} to reprsent in layout by order
-	 * @param {string} caption - caption for layout
 	 * 
 	 * @returns {Element} 
 	 */
-	createGridLayout(cloudinaryBaseUrl, images, caption) {
+	createGridLayout(cloudinaryBaseUrl, images) {
 		/**
 		 * Creates the main grid layout.
 		 */
@@ -61,22 +60,20 @@ export default class GridLayout {
 		/**
 		 * Creates caption container for storing caption
 		 */
-		const captionContainer = create('div', [this.CSS.caption], {}, [
-			document.createTextNode(caption)
-		]);
+		const captionWrapper = new Caption().render();
 
 		/**
 		 * Appends all nodes to the wrapper.
 		 */
 		const wrapper = create('div', [this.CSS.wrapper], {}, [
 			gridLayout,
-			captionContainer
+			captionWrapper
 		]);
 
 		return {
 			wrapper: wrapper,
 			gridLayout: gridLayout,
-			caption: captionContainer
+			captionWrapper: captionWrapper
 		};
 	}
 
@@ -89,7 +86,7 @@ export default class GridLayout {
 	 */
 	addColumnsToGridLayout(cloudinaryBaseUrl, images, gridLayout) {
 		/**
-		 * Default numbe rof columns to be create din the grid.
+		 * Default number of columns to be create din the grid.
 		 */
 		const NUMBER_OF_COLS = 2;
 

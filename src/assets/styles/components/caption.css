@@ -1,0 +1,70 @@
+.caption-wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+}
+
+.caption-wrapper .caption-input{
+    cursor: default;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    margin: 0 4px;
+    text-align: center;
+    color: #808080;
+    border: 0;
+    width: 96px;
+    word-wrap: break-word;
+}
+
+.caption-wrapper .caption-input-editable{
+    cursor: auto;
+    border: 1px solid var(--grey);
+    border-radius: 3px;
+    margin: 0 8px;
+    padding: 6px 2px;
+}
+
+.caption-input:focus{
+    outline: none;
+}
+
+.caption-wrapper .edit-button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 4px;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    color: #434343;
+    cursor: pointer;
+}
+
+.caption-wrapper .edit-button svg{
+    width: 16px;
+    height: 16px;
+}
+
+.caption-wrapper .edit-button:hover{
+    background-color: #EFEFEF;
+}
+
+.caption-wrapper .done-button{
+    cursor: pointer;
+    color: var(--primary);
+    font-size: 12px;
+    line-height: 12px;
+    font-weight: 600;
+    padding: 8px;
+    border-radius: 3px;
+}
+
+.caption-wrapper .done-button:hover{
+    background-color: #EFEFEF;
+}

@@ -9,24 +9,14 @@
 @import './imageBlocks/imageBox.css';
 @import './imageBlocks/imageCell.css';
 
-/* Error styles */
-@import './error.css';
+/* Components styles */
+@import './components/error.css';
+@import './components/caption.css';
 
 /* Wrapper mainn class */
 .main{
-    position: relative;
     box-sizing: border-box;
     margin: 32px 0;
     padding: 0;
     width: 100%;
-}
-
-.error-stack{
-    display: flex;
-    flex-direction: column-reverse;
-    align-items: stretch;
-    justify-content: flex-end;
-    position: absolute;
-    left: 8px;
-    bottom: 56px;
 }

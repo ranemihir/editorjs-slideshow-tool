@@ -1,5 +1,6 @@
 /* main image selector class */
 .image-selector{
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -9,6 +10,18 @@
     border-radius: 4px;
     height: 600px;
     background-color: #FFFFFF;
+}
+
+.image-selector .error-stack{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: stretch;
+    justify-content: flex-end;
+    
+    position: absolute;
+    left: 8px;
+    bottom: 56px;
+    margin-right: 8px;
 }
 
 .image-selector .image-selector-title{
@@ -46,7 +59,7 @@
 }
 
 .image-selector .image-selection-wrapper .image-selection-grid .selected-image{
-    box-shadow: 0 0 0 2pt var(--primary);
+    box-shadow: 0 0 0 3pt var(--primary);
     border-radius: 4px;
     box-shadow: 0;
     cursor: default;
@@ -207,6 +220,6 @@
     }
 
     .image-selector .selected-images-queue-wrapper .selected-images-queue{
-        padding: 0px 32px 20px;
+        padding: 20px 32px;
     }
   }

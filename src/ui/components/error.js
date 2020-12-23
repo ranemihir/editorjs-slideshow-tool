@@ -1,4 +1,4 @@
-import { create } from './utils';
+import { create } from './../utils';
 
 /**
  * API for displaying errors
@@ -25,7 +25,7 @@ export default class Error {
 		return {
 			errorWrapper: 'error-wrapper',
 			errorMessageContainer: 'error-message-container',
-			okButton: 'ok-button'
+			doneButton: 'done-button'
 		};
 	}
 
@@ -50,17 +50,17 @@ export default class Error {
 			document.createTextNode(errorMessage)
 		]);
 
-		const okButton = create('div', [this.CSS.okButton], {}, [
-			document.createTextNode('Ok')
+		const doneButton = create('div', [this.CSS.doneButton], {}, [
+			document.createTextNode('Done')
 		]);
 
-		okButton.addEventListener('click', function () {
+		doneButton.addEventListener('click', function () {
 			classObject.nodes.wrapper.remove();
 		});
 
 		const errorWrapper = create('div', [this.CSS.errorWrapper], {}, [
 			errorMessageContainer,
-			okButton
+			doneButton
 		]);
 
 		return errorWrapper;

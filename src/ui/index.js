@@ -4,7 +4,7 @@ import GridLayoutIcon from './../assets/svg/gridLayoutIcon.svg';
 
 import GridLayout from './layouts/gridLayout';
 import SlideshowLayout from './layouts/slideshowLayout';
-import Error from './error';
+import Error from './components/error';
 import { create } from './utils';
 
 /**
@@ -35,6 +35,7 @@ export default class UI {
 		 */
 		this.nodes = {
 			imageSelectionWrapper: this.createImageSelectionWrapper(this.config),
+			errorStack: create('div', [this.CSS.errorStack]),
 			imageSelectorTitle: this.createImageSelectorTitle(),
 			selectedImagesQueueWrapper: selectedImagesQueueWrapper,
 			selectedImagesQueue: selectedImagesQueueWrapper.lastChild,
@@ -56,21 +57,16 @@ export default class UI {
 		 */
 		this.uiComponents = {
 			wrapper: create('div', [this.CSS.main]),
-			errorStack: create('div', [this.CSS.errorStack]),
 			imageSelector: this.createImageSelector(
 				this.nodes.imageSelectorTitle,
 				this.nodes.imageSelectionWrapper,
+				this.nodes.errorStack,
 				this.nodes.selectedImagesQueueWrapper,
 				this.nodes.bottomToolbar
 			),
 			gridLayout: null,
 			slideshowLayout: null
 		};
-
-		/**
-		 * Append error stack.
-		 */
-		this.uiComponents.wrapper.appendChild(this.uiComponents.errorStack);
 
 		/**
 		 * If there is no data provided on initialisation,
@@ -101,13 +97,13 @@ export default class UI {
 			 * Wrapper styles
 			 */
 			main: 'main',
-			errorStack: 'error-stack',
 			/**
 			 * Image selector styles
 			 */
 			imageSelector: 'image-selector',
 			imageSelectorTitle: 'image-selector-title',
 			imageSelectionWrapper: 'image-selection-wrapper',
+			errorStack: 'error-stack',
 			imageSelectionGrid: 'image-selection-grid',
 			selectedImage: 'selected-image',
 			selectedImagesQueueWrapper: 'selected-images-queue-wrapper',
@@ -156,10 +152,11 @@ export default class UI {
 	 * 
 	 * @returns {Element}
 	 */
-	createImageSelector(imageSelectorTitle, imageSelectionWrapper, selectedImagesQueueWrapper, bottomToolbar) {
+	createImageSelector(imageSelectorTitle, imageSelectionWrapper, errorStack, selectedImagesQueueWrapper, bottomToolbar) {
 		const imageSelector = create('div', [this.CSS.imageSelector], {}, [
 			imageSelectorTitle,
 			imageSelectionWrapper,
+			errorStack,
 			selectedImagesQueueWrapper,
 			bottomToolbar
 		]);
@@ -306,18 +303,17 @@ export default class UI {
 		 */
 		addToArticleButton.addEventListener('click', function () {
 			if (classObject.nodes.selectedImagesQueue.children.length <= 1) {
-				if (classObject.uiComponents.errorStack.children.length == 0) {
+				if (classObject.nodes.errorStack.children.length == 0) {
 					const error = new Error({
 						errorMessage: 'Select 2 or more pictures inorder to add to article'
 					}).render();
 
-					classObject.uiComponents.errorStack.appendChild(error);
+					classObject.nodes.errorStack.appendChild(error);
 				}
 
 				return;
 			}
 
-			const caption = this.parentNode.firstChild.value || '';
 			const selectedImageCells = Array.from(classObject.nodes.selectedImagesQueue.children);
 
 			const selectedImages = [];
@@ -348,8 +344,7 @@ export default class UI {
 				 * Creates and appends grid layout to the main plugin wrapper.
 				 */
 				classObject.uiComponents.gridLayout = new GridLayout({
-					selectedImages,
-					caption
+					selectedImages
 				});
 
 				classObject.uiComponents.wrapper.appendChild(classObject.uiComponents.gridLayout.render());
@@ -358,8 +353,7 @@ export default class UI {
 				 * Creates and appends slideshow layout to the main plugin wrapper.
 				 */
 				classObject.uiComponents.slideshowLayout = new SlideshowLayout({
-					selectedImages,
-					caption
+					selectedImages
 				});
 
 				classObject.uiComponents.wrapper.appendChild(classObject.uiComponents.slideshowLayout.render());

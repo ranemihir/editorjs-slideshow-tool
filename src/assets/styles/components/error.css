@@ -6,12 +6,13 @@
     align-items: center;
     justify-content: center;
     border: 1px solid var(--grey);
+    border-left: 4px solid var(--red);
     border-radius: 3px;
-    padding: 4px 8px 4px 16px;
+    padding: 6px 8px;
     box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.25);
 
     background-color: #FFFFFF;
-    z-index: 1;
+    z-index: 2;
 
     margin-top: 8px;
 }
@@ -21,20 +22,20 @@
     color: var(--red);
     margin-right: 8px;
     font-size: 12px;
-    line-height: 12px;
-    font-weight: 400;
+    line-height: 16px;
+    font-weight: 500;
 }
 
-.error-wrapper .ok-button{
+.error-wrapper .done-button{
     cursor: pointer;
     color: var(--primary);
     font-size: 12px;
     line-height: 12px;
-    font-weight: 500;
+    font-weight: 600;
     padding: 8px;
     border-radius: 3px;
 }
 
-.error-wrapper .ok-button:hover{
+.error-wrapper .done-button:hover{
     background-color: #EFEFEF;
 }
