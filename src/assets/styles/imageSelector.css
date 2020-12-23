@@ -12,12 +12,12 @@
 }
 
 .image-selector .image-selector-title{
-    padding: 24px 20px;
+    padding: 24px 20px 24px 22px;
     border-radius: 2px 2px 0px 0px;
     font-style: normal;
     font-weight: bold;
-    font-size: 20px;
-    line-height: 20px;
+    font-size: 22px;
+    line-height: 22px;
     text-align: left;
     color: #000000;
     background-color: transparent;
@@ -71,6 +71,7 @@
     font-size: 16px;
     line-height: 16px;
     color: #000000;
+    border-bottom: 1px solid var(--grey);
 }
 
 /* queue of selected images */
@@ -80,8 +81,7 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    padding: 0 20px 16px 20px;
-    height: 180px;
+    padding: 20px;
     overflow-x: scroll;
     background-color: transparent;
 }
