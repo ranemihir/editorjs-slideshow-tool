@@ -72,14 +72,7 @@ export default class UI {
 		 * present the image selector
 		 * Otherwise, present the grid or slideshow layout based on the data.
 		 */
-		if (
-			this.data != null &&
-			this.data != undefined &&
-			this.data.imagesOrder != null &&
-			this.data.imagesOrder != undefined &&
-			this.data.imagesOrder.length > 1 &&
-			(this.data.layout == 'slideshow' || this.data.layout == 'grid')
-		) {
+		if (this.validateData(this.config, this.data)) {
 			this.selectedLayout = this.data.layout;
 
 			if (this.selectedLayout == 'grid') {
@@ -104,20 +97,60 @@ export default class UI {
 		}
 	}
 
+	validateData(config, data) {
+		/**
+		 * Validate data property itself.
+		 */
+		if (!data || data == null || data == {}) {
+			return false;
+		}
+
+		/**
+		 * Validate data.imagesOrder property
+		 */
+		if (data.imagesOrder || data.imagesOrder == null || data.imagesOrder.length <= 1) {
+			return false;
+		}
+
+		/**
+		 * Validate data.layout property.
+		 */
+		if (data.layout != 'slideshow' && data.layout != 'grid') {
+			return false;
+		}
+
+		/**
+		 * Validate if all the names are present in the configuration.
+		 */
+		const allImageNames = new Set();
+
+		for (let i = 0; i < config.imageData.length; i++) {
+			allImageNames.add(config.imageData[i].name);
+		}
+
+		for (let i = 0; i < data.imagesOrder.length; i++) {
+			if (!allImageNames.has(data.imagesOrder[i].name)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	/**
-	 * CSS classes
-	 *
-	 * @returns {object}
-	 */
+		 * CSS classes
+		 *
+		 * @returns {object}
+		 */
 	get CSS() {
 		return {
 			/**
-			 * Wrapper styles
-			 */
+				 * Wrapper styles
+				 */
 			main: 'main',
 			/**
-			 * Image selector styles
-			 */
+				 * Image selector styles
+				 */
 			imageSelector: 'image-selector',
 			imageSelectorTitle: 'image-selector-title',
 			imageSelectionWrapper: 'image-selection-wrapper',
@@ -137,26 +170,26 @@ export default class UI {
 			layoutSelectorOptionText: 'layout-selector-option-text',
 			addToArticleButton: 'add-to-article-button',
 			/**
-			 * Image cell styles
-			 */
+				 * Image cell styles
+				 */
 			imageCell: 'image-cell',
 			imageCaption: 'image-caption'
 		};
 	}
 
 	/**
-	 * Renders tool UI
-	 *
-	 * @param {ImageToolData} toolData - saved tool data
-	 * @returns {Element}
-	 */
+		 * Renders tool UI
+		 *
+		 * @param {ImageToolData} toolData - saved tool data
+		 * @returns {Element}
+		 */
 	render() {
 		return this.uiComponents.wrapper;
 	}
 
 	/**
-	 * Creates and returns image selector title - 'Select Pictures'.
-	 */
+		 * Creates and returns image selector title - 'Select Pictures'.
+		 */
 	createImageSelectorTitle() {
 		const imageSelectorTitle = create('div', [this.CSS.imageSelectorTitle], {}, [
 			document.createTextNode('Select Pictures')
@@ -166,10 +199,10 @@ export default class UI {
 	}
 
 	/**
-	 * Creates and returns image selctor component
-	 * 
-	 * @returns {Element}
-	 */
+		 * Creates and returns image selctor component
+		 * 
+		 * @returns {Element}
+		 */
 	createImageSelector(imageSelectorTitle, imageSelectionWrapper, errorStack, selectedImagesQueueWrapper, bottomToolbar) {
 		const imageSelector = create('div', [this.CSS.imageSelector], {}, [
 			imageSelectorTitle,
@@ -183,10 +216,10 @@ export default class UI {
 	}
 
 	/**
-	 * Creates image selction grid and appends all the imageCells to it.
-	 * 
-	 * @returns {Element}
-	 */
+		 * Creates image selction grid and appends all the imageCells to it.
+		 * 
+		 * @returns {Element}
+		 */
 	createImageSelectionWrapper(config) {
 		const imageSelectionGrid = create('div', [this.CSS.imageSelectionGrid]);
 
@@ -205,10 +238,10 @@ export default class UI {
 	}
 
 	/**
-	 * Creates a queue which reprsentes all the selcted images by the user from the selection grid.
-	 * 
-	 * @returns {Element}
-	 */
+		 * Creates a queue which reprsentes all the selcted images by the user from the selection grid.
+		 * 
+		 * @returns {Element}
+		 */
 	createSelectedImagesQueue() {
 		const selectedImagesQueueTitle = create('div', [this.CSS.selectedImagesQueueTitle], {}, [
 			document.createTextNode('Edit Selection')
@@ -227,23 +260,23 @@ export default class UI {
 	}
 
 	/**
-	 * Creates and returns the bottom toolbar.
-	 * 
-	 * @returns {Element}
-	 */
+		 * Creates and returns the bottom toolbar.
+		 * 
+		 * @returns {Element}
+		 */
 	createBottomToolbar(config) {
 		const classObject = this;
 
 		/**
-		 * Creates a container for slideshow option selector text
-		 */
+			 * Creates a container for slideshow option selector text
+			 */
 		const slideshowLayoutSelectorOptionText = create('div', [this.CSS.layoutSelectorOptionText], {}, [
 			document.createTextNode('Slideshow')
 		]);
 
 		/**
-		 * Creates slideshow layout selector
-		 */
+			 * Creates slideshow layout selector
+			 */
 		const slideshowLayoutSelectorOption = create('div', [this.CSS.layoutSelectorOption], {}, [
 			slideshowLayoutSelectorOptionText
 		]);
@@ -251,13 +284,13 @@ export default class UI {
 		slideshowLayoutSelectorOption.style.borderRadius = '3px 0px 0px 3px';
 
 		/**
-		 * Appends slideshow layout icon.
-		 */
+			 * Appends slideshow layout icon.
+			 */
 		slideshowLayoutSelectorOption.innerHTML += SlideshowLayoutIcon;
 
 		/**
-		 * Toggle between 'slideshow'and 'grid' layout.
-		 */
+			 * Toggle between 'slideshow'and 'grid' layout.
+			 */
 		slideshowLayoutSelectorOption.addEventListener('click', function () {
 			classObject.selectedLayout = 'slideshow';
 
@@ -269,15 +302,15 @@ export default class UI {
 		});
 
 		/**
-		 * Creates a container for grid option selector text
-		 */
+			 * Creates a container for grid option selector text
+			 */
 		const gridLayoutSelectorOptionText = create('div', [this.CSS.layoutSelectorOptionText], {}, [
 			document.createTextNode('Grid')
 		]);
 
 		/**
-		 * Creates grid layout selector
-		 */
+			 * Creates grid layout selector
+			 */
 		const gridLayoutSelectorOption = create('div', [this.CSS.layoutSelectorOption], {}, [
 			gridLayoutSelectorOptionText
 		]);
@@ -285,8 +318,8 @@ export default class UI {
 		gridLayoutSelectorOption.style.borderRadius = '0px 3px 3px 0px';
 
 		/**
-		 * Append grid layout icon.
-		 */
+			 * Append grid layout icon.
+			 */
 		gridLayoutSelectorOption.innerHTML += GridLayoutIcon;
 
 		gridLayoutSelectorOption.addEventListener('click', function () {
@@ -300,28 +333,28 @@ export default class UI {
 		});
 
 		/**
-		 * Default selected layout is slideshow.
-		 */
+			 * Default selected layout is slideshow.
+			 */
 		slideshowLayoutSelectorOption.classList.add(this.CSS.selectedLayoutOption);
 
 		/**
-		 * Creates a layout selector for selecting between grid and slideshow layout.
-		 */
+			 * Creates a layout selector for selecting between grid and slideshow layout.
+			 */
 		const layoutSelector = create('div', [this.CSS.layoutSelector], {}, [
 			slideshowLayoutSelectorOption,
 			gridLayoutSelectorOption
 		]);
 
 		/**
-		 * Creates 'Add to Article' button on bottom right corner of image selector.
-		 */
+			 * Creates 'Add to Article' button on bottom right corner of image selector.
+			 */
 		const addToArticleButton = create('button', [this.CSS.addToArticleButton], {}, [
 			document.createTextNode('Add to Article')
 		]);
 
 		/**
-		 * Create the default layout by default on pressing 'Add to Article Button'.
-		 */
+			 * Create the default layout by default on pressing 'Add to Article Button'.
+			 */
 		addToArticleButton.addEventListener('click', function () {
 			if (classObject.nodes.selectedImagesQueue.children.length <= 1) {
 				if (classObject.nodes.errorStack.children.length == 0) {
@@ -340,12 +373,12 @@ export default class UI {
 			const selectedImages = [];
 
 			/**
-			 * Add {name, caption} object in selected images to be sent to layout class.
-			 */
+				 * Add {name, caption} object in selected images to be sent to layout class.
+				 */
 			selectedImageCells.forEach(function (node) {
 				/**
-				 * id property represents the index of the image cell.
-				 */
+					 * id property represents the index of the image cell.
+					 */
 				const index = parseInt(node.id);
 				const selectedImage = classObject.config.imageData[index];
 
@@ -353,17 +386,17 @@ export default class UI {
 			});
 
 			/**
-			 * Removes image selector from the main plugin wrapper.
-			 */
+				 * Removes image selector from the main plugin wrapper.
+				 */
 			classObject.uiComponents.wrapper.removeChild(classObject.uiComponents.wrapper.firstChild);
 
 			/**
-			 * Creates layout based on selecte doption by user.
-			 */
+				 * Creates layout based on selecte doption by user.
+				 */
 			if (classObject.selectedLayout == 'grid') {
 				/**
-				 * Creates and appends grid layout to the main plugin wrapper.
-				 */
+					 * Creates and appends grid layout to the main plugin wrapper.
+					 */
 				classObject.uiComponents.gridLayout = new GridLayout({
 					cloudinaryBaseUrl: config.cloudinaryBaseUrl,
 					selectedImages
@@ -372,8 +405,8 @@ export default class UI {
 				classObject.uiComponents.wrapper.appendChild(classObject.uiComponents.gridLayout.render());
 			} else {
 				/**
-				 * Creates and appends slideshow layout to the main plugin wrapper.
-				 */
+					 * Creates and appends slideshow layout to the main plugin wrapper.
+					 */
 				classObject.uiComponents.slideshowLayout = new SlideshowLayout({
 					cloudinaryBaseUrl: config.cloudinaryBaseUrl,
 					selectedImages
@@ -384,8 +417,8 @@ export default class UI {
 		});
 
 		/**
-		 * Creates bottom toolbar and appends the caption textbox and 'Add to Article' button.
-		 */
+			 * Creates bottom toolbar and appends the caption textbox and 'Add to Article' button.
+			 */
 		const bottomToolbar = create('div', [this.CSS.bottomToolbar], {}, [
 			layoutSelector,
 			addToArticleButton
@@ -395,13 +428,13 @@ export default class UI {
 	}
 
 	/**
-	 * Creates and returns an image cell which is represented in the image selection grid and 
-	 * selectedImagesQueue.
-	 * 
-	 * @param {string} imageSrc - src link fro image.
-	 * 
-	 * @returns {Element} imageCell
-	 */
+		 * Creates and returns an image cell which is represented in the image selection grid and 
+		 * selectedImagesQueue.
+		 * 
+		 * @param {string} imageSrc - src link fro image.
+		 * 
+		 * @returns {Element} imageCell
+		 */
 	createImageCell(imageSrc, caption) {
 		const image = create('img', [], {
 			src: imageSrc,
@@ -409,8 +442,8 @@ export default class UI {
 		});
 
 		/**
-		 * Length of caption in image cell
-		 */
+			 * Length of caption in image cell
+			 */
 		const CHAR_LIMIT_FOR_IMAGE_CELL = 10;
 
 		if (caption.length > CHAR_LIMIT_FOR_IMAGE_CELL) {
@@ -429,68 +462,68 @@ export default class UI {
 		const classObject = this;
 
 		/**
-		 * Adds image cells to selected images queue on click.
-		 */
+			 * Adds image cells to selected images queue on click.
+			 */
 		imageCell.addEventListener('click', function () {
 			if (this.classList.contains(classObject.CSS.selectedImage)) {
 				return;
 			}
 
 			/**
-			 * If this is the first image cell being added, display the selectedimagesQueue.
-			 */
+				 * If this is the first image cell being added, display the selectedimagesQueue.
+				 */
 			if (classObject.nodes.selectedImagesQueueWrapper.style.display == 'none') {
 				classObject.nodes.selectedImagesQueueWrapper.style.display = 'flex';
 			}
 
 			const imageCellIndex = Array.from(classObject.nodes.imageSelectionWrapper.children[0].children).indexOf(this);
 			/**
-			 * Clone the image cell which is to be appended in the selectedImagesQueue.
-			 */
+				 * Clone the image cell which is to be appended in the selectedImagesQueue.
+				 */
 			const imageCellClone = this.cloneNode(true);
 
 			/**
-			 * Set cursor to default
-			 */
+				 * Set cursor to default
+				 */
 			imageCellClone.style.cursor = 'default';
 
 			/**
-			 * Represent the image as selected in the image selection grid using a border.
-			 * Also used to reference the selected image.
-			 */
+				 * Represent the image as selected in the image selection grid using a border.
+				 * Also used to reference the selected image.
+				 */
 			this.classList.add(classObject.CSS.selectedImage);
 
 			/**
-			 * Create close button the top-right corner.
-			 */
+				 * Create close button the top-right corner.
+				 */
 			const closeButton = create('div', [classObject.CSS.closeButton]);
 			closeButton.innerHTML += CloseButtonIcon;
 
 			/**
-			 * Remove selected image from the selectedImageQueue.
-			 */
+				 * Remove selected image from the selectedImageQueue.
+				 */
 			closeButton.addEventListener('click', function () {
 				/**
-				 * Remove the selection from the image selection grid.
-				 */
+					 * Remove the selection from the image selection grid.
+					 */
 				imageCell.classList.remove(classObject.CSS.selectedImage);
 
 				/**
-				 * Remove the deletable image cell from the selectedImageQueue.
-				 */
+					 * Remove the deletable image cell from the selectedImageQueue.
+					 */
 				classObject.nodes.selectedImagesQueue.removeChild(closeButton.parentNode);
 
 				/**
-				 * If no image cells are remaining in the selectedImagesQueue, set display to none.
-				 */
+					 * If no image cells are remaining in the selectedImagesQueue, set display to none.
+					 */
 				if (classObject.nodes.selectedImagesQueue.children.length == 0) {
 					classObject.nodes.selectedImagesQueueWrapper.style.display = 'none';
 				}
 			});
 
 			/**
-			 * Create the image cell to be added in the selectedImagesQueue.
-			 */
+				 * Create the image cell to be added in the selectedImagesQueue.
+				 */
 			const deletableImageCellWrapper = create('div', [classObject.CSS.deletableImageCellWrapper], {
 				id: imageCellIndex
 			}, [
@@ -499,13 +532,13 @@ export default class UI {
 			]);
 
 			/**
-			 * Append the deletable image cell to the selectedImagesQueue.
-			 */
+				 * Append the deletable image cell to the selectedImagesQueue.
+				 */
 			classObject.nodes.selectedImagesQueue.appendChild(deletableImageCellWrapper);
 
 			/**
-			 * Scroll towards right to that image cell after adding it.
-			 */
+				 * Scroll towards right to that image cell after adding it.
+				 */
 			deletableImageCellWrapper.scrollIntoView(false);
 		});
 
