@@ -91,7 +91,7 @@ export default class SlideshowPlugin {
 	 * @returns {SlideshowPluginData}
 	 */
 	save() {
-		if (this.ui.uiComponents.gridLayout == null && this.ui.uiComponents.gridLayout == null) {
+		if (this.ui.uiComponents.gridLayout == null && this.ui.uiComponents.slideshowLayout == null) {
 			return {};
 		}
 

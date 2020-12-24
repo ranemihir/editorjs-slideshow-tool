@@ -59,6 +59,12 @@ export default class Caption {
 			value: caption
 		});
 
+		if (captionInput.value == '') {
+			captionInput.style.width = '100px';
+		} else {
+			captionInput.style.width = ((captionInput.value.length + 1) * 8) + 'px';
+		}
+
 		/**
 		 * Resizes the width of the input container based on the number of characters inside it.
 		 */

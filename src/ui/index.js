@@ -80,7 +80,9 @@ export default class UI {
 			this.data.imagesOrder.length > 1 &&
 			(this.data.layout == 'slideshow' || this.data.layout == 'grid')
 		) {
-			if (this.data.layout == 'grid') {
+			this.selectedLayout = this.data.layout;
+
+			if (this.selectedLayout == 'grid') {
 				this.uiComponents.gridLayout = new GridLayout({
 					cloudinaryBaseUrl: this.config.cloudinaryBaseUrl,
 					selectedImages: this.data.imagesOrder,
