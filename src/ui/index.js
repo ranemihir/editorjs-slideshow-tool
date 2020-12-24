@@ -39,7 +39,7 @@ export default class UI {
 			imageSelectorTitle: this.createImageSelectorTitle(),
 			selectedImagesQueueWrapper: selectedImagesQueueWrapper,
 			selectedImagesQueue: selectedImagesQueueWrapper.lastChild,
-			bottomToolbar: this.createBottomToolbar()
+			bottomToolbar: this.createBottomToolbar(this.config)
 		};
 
 		/**
@@ -213,7 +213,7 @@ export default class UI {
 	 * 
 	 * @returns {Element}
 	 */
-	createBottomToolbar() {
+	createBottomToolbar(config) {
 		const classObject = this;
 
 		/**
@@ -347,6 +347,7 @@ export default class UI {
 				 * Creates and appends grid layout to the main plugin wrapper.
 				 */
 				classObject.uiComponents.gridLayout = new GridLayout({
+					cloudinaryBaseUrl: config.cloudinaryBaseUrl,
 					selectedImages
 				});
 
@@ -356,6 +357,7 @@ export default class UI {
 				 * Creates and appends slideshow layout to the main plugin wrapper.
 				 */
 				classObject.uiComponents.slideshowLayout = new SlideshowLayout({
+					cloudinaryBaseUrl: config.cloudinaryBaseUrl,
 					selectedImages
 				});
 
