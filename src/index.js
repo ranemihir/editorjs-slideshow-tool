@@ -100,9 +100,12 @@ export default class SlideshowPlugin {
 			 * Cleaning the caption input using eEditor's on API
 			 */
 			layoutCaption = this.api.sanitizer.clean(this.ui.uiComponents.gridLayout.nodes.captionWrapper.firstChild.value);
-		} else {
+		} else if (this.ui.selectedLayout == 'slideshow') {
 			imagesOrder = this.ui.uiComponents.slideshowLayout.selectedImages;
 			layoutCaption = this.api.sanitizer.clean(this.ui.uiComponents.slideshowLayout.nodes.captionWrapper.firstChild.value);
+		}
+		else {
+			return {};
 		}
 
 		return {

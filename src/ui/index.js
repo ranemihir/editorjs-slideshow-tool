@@ -43,9 +43,8 @@ export default class UI {
 
 		/**
 		 * The property stores the selected layout by user: 'slideshow' or 'grid'
-		 * The default is 'slideshow'.
 		 */
-		this.selectedLayout = 'slideshow';
+		this.selectedLayout = '';
 
 		/**
 		 * Four primary UI components of the plugin:
