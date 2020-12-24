@@ -59,7 +59,13 @@ export default class Caption {
 			value: caption
 		});
 
+		/**
+		 * Resive according to the provided value
+		 */
 		if (captionInput.value == '') {
+			/**
+			 * Default width for placeholder, if value is an empty string.
+			 */
 			captionInput.style.width = '100px';
 		} else {
 			captionInput.style.width = ((captionInput.value.length + 1) * 8) + 'px';
@@ -72,9 +78,6 @@ export default class Caption {
 			if (this.value) {
 				this.style.width = ((this.value.length + 1) * 8) + 'px';
 			} else {
-				/**
-				 * Default width fro placeholder.
-				 */
 				this.style.width = '100px';
 			}
 		};
