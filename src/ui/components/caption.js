@@ -5,11 +5,12 @@ import EditButtonIcon from './../../assets/svg/editButtonIcon.svg';
  * Caption API class
  */
 export default class Caption {
-	constructor() {
+	constructor({ caption }) {
+		this.caption = caption || '';
 		/**
 		 * Creates and returns caption nodes.
 		 */
-		this.nodes = this.createCaption();
+		this.nodes = this.createCaption(this.caption);
 	}
 
 	/**
@@ -41,7 +42,7 @@ export default class Caption {
 	 * 
 	 * @returns {object} nodes - all nodes related caption.
 	 */
-	createCaption() {
+	createCaption(caption) {
 		const classObject = this;
 
 		/**
@@ -54,7 +55,8 @@ export default class Caption {
 			 */
 			readonly: true,
 			placeholder: 'Write a caption',
-			maxlength: '50'
+			maxlength: '50',
+			value: caption
 		});
 
 		/**

@@ -17,8 +17,7 @@ export default class UI {
 	 * @param {object} ui.api - Editor.js API
 	 * @param {ImageConfig} ui.config - user config
 	 */
-	constructor({ api, config, data }) {
-		this.api = api;
+	constructor({ config, data }) {
 		this.config = config;
 		this.data = data;
 
@@ -77,10 +76,20 @@ export default class UI {
 			this.uiComponents.wrapper.appendChild(this.uiComponents.imageSelector);
 		} else {
 			if (data.layout == 'grid') {
-				this.uiComponents.gridLayout = new GridLayout(data);
+				this.uiComponents.gridLayout = new GridLayout({
+					cloudinaryBaseUrl: this.config.cloudinaryBaseUrl,
+					selectedImages: this.data.imagesOrder,
+					caption: this.data.layoutCaption
+				});
+
 				this.uiComponents.wrapper.appendChild(this.uiComponents.gridLayout.render());
 			} else {
-				this.uiComponents.slideshowLayout = new SlideshowLayout(data);
+				this.uiComponents.slideshowLayout = new SlideshowLayout({
+					cloudinaryBaseUrl: this.config.cloudinaryBaseUrl,
+					selectedImages: this.data.imagesOrder,
+					caption: this.data.layoutCaption
+				});
+
 				this.uiComponents.wrapper.appendChild(this.uiComponents.slideshowLayout.render());
 			}
 		}

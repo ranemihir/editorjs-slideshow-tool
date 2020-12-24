@@ -11,14 +11,15 @@ export default class GridLayout {
 	 * @param {Array[object]} ui.selectedImages - object - image name and caption
 	 * @param {ImageConfig} ui.caption - caption for layout
 	 */
-	constructor({ cloudinaryBaseUrl, selectedImages }) {
+	constructor({ cloudinaryBaseUrl, selectedImages, caption }) {
 		this.cloudinaryBaseUrl = cloudinaryBaseUrl || '';
 		this.selectedImages = selectedImages;
+		this.caption = caption || '';
 
 		/**
 		 * Creates grid layout from selected images.
 		 */
-		this.nodes = this.createGridLayout(this.cloudinaryBaseUrl, this.selectedImages);
+		this.nodes = this.createGridLayout(this.cloudinaryBaseUrl, this.selectedImages, this.caption);
 	}
 
 	/**
@@ -49,7 +50,7 @@ export default class GridLayout {
 	 * 
 	 * @returns {object} nodes - all nodes related to grid layout 
 	 */
-	createGridLayout(cloudinaryBaseUrl, images) {
+	createGridLayout(cloudinaryBaseUrl, images, caption) {
 		/**
 		 * Creates the main grid layout.
 		 */
@@ -63,7 +64,7 @@ export default class GridLayout {
 		/**
 		 * Creates caption container for storing caption
 		 */
-		const captionWrapper = new Caption().render();
+		const captionWrapper = new Caption({ caption }).render();
 
 		/**
 		 * Appends all nodes to the wrapper.

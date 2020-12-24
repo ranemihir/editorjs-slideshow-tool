@@ -9,9 +9,10 @@ export default class SlideshowLayout {
 	/**
 	 * @param {Array[object]} selectedImages - object - image name and caption
 	 */
-	constructor({ cloudinaryBaseUrl, selectedImages }) {
+	constructor({ cloudinaryBaseUrl, selectedImages, caption }) {
 		this.cloudinaryBaseUrl = cloudinaryBaseUrl || '';
 		this.selectedImages = selectedImages;
+		this.caption = caption || '';
 
 		/**
 		 * Creates slideshow layout from selected images.
@@ -49,7 +50,7 @@ export default class SlideshowLayout {
 	 * 
 	 * @returns {object} nodes - all nodes related to slideshow layout 
 	 */
-	createSlideshowLayout(cloudinaryBaseUrl, images) {
+	createSlideshowLayout(cloudinaryBaseUrl, images, caption) {
 		/**
 		 * Creates the main slideshow layout.
 		 */
@@ -63,7 +64,7 @@ export default class SlideshowLayout {
 		/**
 		 * Creates caption wrapper for storing and editing caption
 		 */
-		const captionWrapper = new Caption().render();
+		const captionWrapper = new Caption({ caption }).render();
 
 		/**
 		 * Appends all nodes to the wrapper.
