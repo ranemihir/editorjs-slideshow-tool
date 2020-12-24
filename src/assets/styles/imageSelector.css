@@ -73,7 +73,7 @@
     background-color: #FAFAFA; 
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
     border-top: 1px solid var(--grey);
-    
+
     z-index: 1;
 }
 
@@ -94,7 +94,8 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    padding: 20px;
+    padding: 20px 0 20px 20px;
+    margin-right: 18px;
     overflow-x: scroll;
     background-color: transparent;
 }

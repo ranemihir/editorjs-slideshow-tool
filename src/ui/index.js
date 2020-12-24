@@ -424,8 +424,8 @@ export default class UI {
 		});
 
 		/**
-			 * Creates bottom toolbar and appends the caption textbox and 'Add to Article' button.
-			 */
+		* Creates bottom toolbar and appends the caption textbox and 'Add to Article' button.
+		 */
 		const bottomToolbar = create('div', [this.CSS.bottomToolbar], {}, [
 			layoutSelector,
 			addToArticleButton
@@ -544,9 +544,13 @@ export default class UI {
 			classObject.nodes.selectedImagesQueue.appendChild(deletableImageCellWrapper);
 
 			/**
-				 * Scroll towards right to that image cell after adding it.
-				 */
-			deletableImageCellWrapper.scrollIntoView(false);
+			 * Scroll towards right to that image cell after adding it.
+			 */
+			deletableImageCellWrapper.scrollIntoView({
+				behavior: 'smooth',
+				block: 'nearest',
+				inline: 'end'
+			});
 		});
 
 		return imageCell;
