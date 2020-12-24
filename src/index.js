@@ -90,10 +90,21 @@ export default class SlideshowPlugin {
 	 *
 	 * @returns {SlideshowPluginData}
 	 */
-	save(blockContent) {
+	save() {
+		let imagesOrder, layoutCaption;
+
+		if (this.ui.selectedLayout == 'grid') {
+			imagesOrder = this.ui.uiComponents.gridLayout.selectedImages;
+			layoutCaption = this.ui.uiComponents.gridLayout.nodes.captionWrapper.firstChild.value;
+		} else {
+			imagesOrder = this.ui.uiComponents.slideshowLayout.selectedImages;
+			layoutCaption = this.ui.uiComponents.slideshowLayout.nodes.captionWrapper.firstChild.value;
+		}
+
 		return {
-			layout: blockContent.layout,
-			imagesOrder: blockContent.imagesOrder //[]
+			layout: this.ui.selectedLayout,
+			imagesOrder,
+			layoutCaption
 		};
 	}
 }

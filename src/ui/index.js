@@ -78,10 +78,10 @@ export default class UI {
 		} else {
 			if (data.layout == 'grid') {
 				this.uiComponents.gridLayout = new GridLayout(data);
-				this.uiComponents.wrapper.appendChild(this.uiComponents.gridLayout);
+				this.uiComponents.wrapper.appendChild(this.uiComponents.gridLayout.render());
 			} else {
 				this.uiComponents.slideshowLayout = new SlideshowLayout(data);
-				this.uiComponents.wrapper.appendChild(this.uiComponents.slideshowLayout);
+				this.uiComponents.wrapper.appendChild(this.uiComponents.slideshowLayout.render());
 			}
 		}
 	}
