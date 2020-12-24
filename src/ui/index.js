@@ -43,8 +43,9 @@ export default class UI {
 
 		/**
 		 * The property stores the selected layout by user: 'slideshow' or 'grid'
+		 * The default is 'slideshow'
 		 */
-		this.selectedLayout = '';
+		this.selectedLayout = 'slideshow';
 
 		/**
 		 * Four primary UI components of the plugin:
@@ -71,10 +72,15 @@ export default class UI {
 		 * present the image selector
 		 * Otherwise, present the grid or slideshow layout based on the data.
 		 */
-		if (data == null || data == undefined || data == {}) {
-			this.uiComponents.wrapper.appendChild(this.uiComponents.imageSelector);
-		} else {
-			if (data.layout == 'grid') {
+		if (
+			this.data != null &&
+			this.data != undefined &&
+			this.data.imagesOrder != null &&
+			this.data.imagesOrder != undefined &&
+			this.data.imagesOrder.length > 1 &&
+			(this.data.layout == 'slideshow' || this.data.layout == 'grid')
+		) {
+			if (this.data.layout == 'grid') {
 				this.uiComponents.gridLayout = new GridLayout({
 					cloudinaryBaseUrl: this.config.cloudinaryBaseUrl,
 					selectedImages: this.data.imagesOrder,
@@ -91,6 +97,8 @@ export default class UI {
 
 				this.uiComponents.wrapper.appendChild(this.uiComponents.slideshowLayout.render());
 			}
+		} else {
+			this.uiComponents.wrapper.appendChild(this.uiComponents.imageSelector);
 		}
 	}
 

@@ -56,8 +56,8 @@ export default class SlideshowPlugin {
 		 * Module for working with UI
 		 */
 		this.ui = new UI({
-			api,
-			config: this.config
+			config: this.config,
+			data: this.data
 		});
 	}
 
@@ -91,6 +91,10 @@ export default class SlideshowPlugin {
 	 * @returns {SlideshowPluginData}
 	 */
 	save() {
+		if (this.ui.uiComponents.gridLayout == null && this.ui.uiComponents.gridLayout == null) {
+			return {};
+		}
+
 		let imagesOrder, layoutCaption;
 
 		if (this.ui.selectedLayout == 'grid') {
@@ -100,12 +104,9 @@ export default class SlideshowPlugin {
 			 * Cleaning the caption input using eEditor's on API
 			 */
 			layoutCaption = this.api.sanitizer.clean(this.ui.uiComponents.gridLayout.nodes.captionWrapper.firstChild.value);
-		} else if (this.ui.selectedLayout == 'slideshow') {
+		} else {
 			imagesOrder = this.ui.uiComponents.slideshowLayout.selectedImages;
 			layoutCaption = this.api.sanitizer.clean(this.ui.uiComponents.slideshowLayout.nodes.captionWrapper.firstChild.value);
-		}
-		else {
-			return {};
 		}
 
 		return {

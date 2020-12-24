@@ -3,7 +3,9 @@ const editorData = {
 	blocks: [
 		{
 			type: 'paragraph',
-			data: 'PHP is a dynamically typed structure, So union types are very useful in a lot of places. Union types are a collection of two or more types which indicate that either one of those can be used.'
+			data: {
+				text: 'PHP is a dynamically typed structure, So union types are very useful in a lot of places. Union types are a collection of two or more types which indicate that either one of those can be used.'
+			}
 		},
 		{
 			type: 'slideshow',
@@ -11,7 +13,9 @@ const editorData = {
 		},
 		{
 			type: 'paragraph',
-			data: 'These challenges are mostly beginner programming problems. You might encounter one or two in a technical interview for an entry level job. If you are a beginner in JavaScript, it might help consolidate your JavaScript knowledge. I have documented my solutions here. The same solutions can also be found on Scrimba by following the link below each challenge description. You are free to play with the code.'
+			data: {
+				text: 'These challenges are mostly beginner programming problems. You might encounter one or two in a technical interview for an entry level job. If you are a beginner in JavaScript, it might help consolidate your JavaScript knowledge. I have documented my solutions here. The same solutions can also be found on Scrimba by following the link below each challenge description. You are free to play with the code.'
+			}
 		},
 		{
 			type: 'slideshow',
@@ -44,7 +48,9 @@ const editorData = {
 		},
 		{
 			type: 'paragraph',
-			data: 'You have deposited a specific amount of dollars into your bank account. Each year your balance increases at the same growth rate. Find out how long it would take for your balance to pass a specific threshold with the assumption that you dont make any additional deposits.'
+			data: {
+				text: 'You have deposited a specific amount of dollars into your bank account. Each year your balance increases at the same growth rate. Find out how long it would take for your balance to pass a specific threshold with the assumption that you dont make any additional deposits.'
+			}
 		},
 		{
 			type: 'slideshow',
@@ -69,7 +75,9 @@ const editorData = {
 		},
 		{
 			type: 'paragraph',
-			data: 'Castle Bank is often considered to be the site of an Iron Age hillfort, but there is no firm evidence to corroborate this.[1] It has also been speculated that the princely court of a native Welsh ruler was situated nearby. The first castle at Cefnllys, 1 mile (1.6 km) north of the ridge, was a motte-and-bailey thrown up during the early stages of the Norman invasion of Wales by the Anglo-Norman baron Ralph Mortimer, beginning a long association between the powerful Mortimer family and Cefnllys.'
+			data: {
+				text: 'Castle Bank is often considered to be the site of an Iron Age hillfort, but there is no firm evidence to corroborate this.[1] It has also been speculated that the princely court of a native Welsh ruler was situated nearby. The first castle at Cefnllys, 1 mile (1.6 km) north of the ridge, was a motte-and-bailey thrown up during the early stages of the Norman invasion of Wales by the Anglo-Norman baron Ralph Mortimer, beginning a long association between the powerful Mortimer family and Cefnllys.'
+			}
 		},
 	]
 };
