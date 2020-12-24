@@ -26,7 +26,7 @@
     font-weight: 500;
 }
 
-.error-wrapper .done-button{
+.error-wrapper .close-button{
     cursor: pointer;
     color: var(--primary);
     font-size: 12px;
@@ -36,6 +36,6 @@
     border-radius: 3px;
 }
 
-.error-wrapper .done-button:hover{
+.error-wrapper .close-button:hover{
     background-color: #EFEFEF;
 }

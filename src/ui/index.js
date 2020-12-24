@@ -233,10 +233,13 @@ export default class UI {
 		slideshowLayoutSelectorOption.style.borderRadius = '3px 0px 0px 3px';
 
 		/**
-		 * Append slideshow layout icon.
+		 * Appends slideshow layout icon.
 		 */
 		slideshowLayoutSelectorOption.innerHTML += SlideshowLayoutIcon;
 
+		/**
+		 * Toggle between 'slideshow'and 'grid' layout.
+		 */
 		slideshowLayoutSelectorOption.addEventListener('click', function () {
 			classObject.selectedLayout = 'slideshow';
 
@@ -377,7 +380,7 @@ export default class UI {
 	 * 
 	 * @param {string} imageSrc - src link fro image.
 	 * 
-	 * @returns {Element}
+	 * @returns {Element} imageCell
 	 */
 	createImageCell(imageSrc, caption) {
 		const image = create('img', [], {
@@ -480,6 +483,9 @@ export default class UI {
 			 */
 			classObject.nodes.selectedImagesQueue.appendChild(deletableImageCellWrapper);
 
+			/**
+			 * Scroll towards right to that image cell after adding it.
+			 */
 			deletableImageCellWrapper.scrollIntoView(false);
 		});
 

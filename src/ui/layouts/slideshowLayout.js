@@ -13,6 +13,9 @@ export default class SlideshowLayout {
 		this.cloudinaryBaseUrl = cloudinaryBaseUrl || '';
 		this.selectedImages = selectedImages;
 
+		/**
+		 * Creates slideshow layout from selected images.
+		 */
 		this.nodes = this.createSlideshowLayout(this.cloudinaryBaseUrl, this.selectedImages, this.caption);
 	}
 
@@ -44,7 +47,7 @@ export default class SlideshowLayout {
 	 * @param {Array[object]} images - all selected images {name, caption} to reprsent in layout by order
 	 * @param {string} caption - caption for layout
 	 * 
-	 * @returns {Element} 
+	 * @returns {object} nodes - all nodes related to slideshow layout 
 	 */
 	createSlideshowLayout(cloudinaryBaseUrl, images) {
 		/**

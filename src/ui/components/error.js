@@ -9,6 +9,9 @@ export default class Error {
 	 * @param {string} errorMessage
 	 */
 	constructor({ errorMessage }) {
+		/**
+		 * print error on console.
+		 */
 		console.error(errorMessage);
 
 		this.nodes = {
@@ -25,7 +28,7 @@ export default class Error {
 		return {
 			errorWrapper: 'error-wrapper',
 			errorMessageContainer: 'error-message-container',
-			doneButton: 'done-button'
+			closeButton: 'close-button'
 		};
 	}
 
@@ -41,7 +44,7 @@ export default class Error {
 	 * 
 	 * @param {string} errorMessage 
 	 * 
-	 * @returns {Element}
+	 * @returns {Element} errorWrapper - wrapper of the component.
 	 */
 	createError(errorMessage) {
 		const classObject = this;
@@ -50,17 +53,20 @@ export default class Error {
 			document.createTextNode(errorMessage)
 		]);
 
-		const doneButton = create('div', [this.CSS.doneButton], {}, [
-			document.createTextNode('Done')
+		const closeButton = create('div', [this.CSS.closeButton], {}, [
+			document.createTextNode('Close')
 		]);
 
-		doneButton.addEventListener('click', function () {
+		/**
+		 * Removes the error message.
+		 */
+		closeButton.addEventListener('click', function () {
 			classObject.nodes.wrapper.remove();
 		});
 
 		const errorWrapper = create('div', [this.CSS.errorWrapper], {}, [
 			errorMessageContainer,
-			doneButton
+			closeButton
 		]);
 
 		return errorWrapper;

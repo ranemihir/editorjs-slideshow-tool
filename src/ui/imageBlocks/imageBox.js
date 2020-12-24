@@ -9,6 +9,9 @@ export default class ImageBox {
 	 * @param {string} caption - caption for the image
 	 */
 	constructor({ cloudinaryBaseUrl, name, caption }) {
+		/**
+		 * Creates image boxes to be represented in layouts.
+		 */
 		this.nodes = this.createImageBox(cloudinaryBaseUrl, name, caption);
 	}
 
@@ -33,7 +36,13 @@ export default class ImageBox {
 	}
 
 	/**
-	 * Creates and returns all nodes of imageBox.
+	 * Creates Image Box.
+	 * 
+	 * @param {string} cloudinaryBaseUrl 
+	 * @param {string} name 
+	 * @param {string} caption 
+	 * 
+	 * @returns nodes - all nodes of image box.
 	 */
 	createImageBox(cloudinaryBaseUrl, name, caption) {
 		const imageSrc = cloudinaryBaseUrl + name;
@@ -43,8 +52,14 @@ export default class ImageBox {
 			alt: 'Image box - ' + caption
 		});
 
+		/**
+		 * Black half transparent faded background container
+		 */
 		const fadedBackground = create('div', [this.CSS.fadedBackground]);
 
+		/**
+		 * Represents caption.
+		 */
 		const captionContainer = create('div', [this.CSS.captionContainer], {}, [
 			document.createTextNode(caption)
 		]);

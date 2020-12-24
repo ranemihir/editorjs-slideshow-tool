@@ -15,6 +15,9 @@ export default class GridLayout {
 		this.cloudinaryBaseUrl = cloudinaryBaseUrl || '';
 		this.selectedImages = selectedImages;
 
+		/**
+		 * Creates grid layout from selected images.
+		 */
 		this.nodes = this.createGridLayout(this.cloudinaryBaseUrl, this.selectedImages);
 	}
 
@@ -44,7 +47,7 @@ export default class GridLayout {
 	 * 
 	 * @param {Array[object]} images - all selected images {name, caption} to reprsent in layout by order
 	 * 
-	 * @returns {Element} 
+	 * @returns {object} nodes - all nodes related to grid layout 
 	 */
 	createGridLayout(cloudinaryBaseUrl, images) {
 		/**
