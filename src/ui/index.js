@@ -14,8 +14,8 @@ import { create } from './utils';
 export default class UI {
 	/**
 	 * @param {object} ui - image tool Ui module
-	 * @param {object} ui.api - Editor.js API
 	 * @param {ImageConfig} ui.config - user config
+	 * @param {data} ui.data - provided data
 	 */
 	constructor({ config, data }) {
 		this.config = config;
@@ -101,14 +101,15 @@ export default class UI {
 		/**
 		 * Validate data property itself.
 		 */
-		if (!data || data == null || data == {}) {
+		if (!data || data == null || Object.keys(data).length == 0) {
 			return false;
 		}
 
 		/**
 		 * Validate data.imagesOrder property
 		 */
-		if (data.imagesOrder || data.imagesOrder == null || data.imagesOrder.length <= 1) {
+		if (!data.imagesOrder || data.imagesOrder == null || data.imagesOrder.length <= 1) {
+			this.createAndAppendError('Minimum 2 images are required for any layout');
 			return false;
 		}
 
@@ -116,6 +117,7 @@ export default class UI {
 		 * Validate data.layout property.
 		 */
 		if (data.layout != 'slideshow' && data.layout != 'grid') {
+			this.createAndAppendError('layout property can only contain \'slideshow\' or \'grid\'');
 			return false;
 		}
 
@@ -130,11 +132,20 @@ export default class UI {
 
 		for (let i = 0; i < data.imagesOrder.length; i++) {
 			if (!allImageNames.has(data.imagesOrder[i].name)) {
+				this.createAndAppendError('Some of the names are not present in original configuration');
 				return false;
 			}
 		}
 
 		return true;
+	}
+
+	createAndAppendError(errorMessage) {
+		const error = new Error({
+			errorMessage
+		}).render();
+
+		this.nodes.errorStack.appendChild(error);
 	}
 
 	/**
@@ -358,11 +369,7 @@ export default class UI {
 		addToArticleButton.addEventListener('click', function () {
 			if (classObject.nodes.selectedImagesQueue.children.length <= 1) {
 				if (classObject.nodes.errorStack.children.length == 0) {
-					const error = new Error({
-						errorMessage: 'Select 2 or more pictures inorder to add to article'
-					}).render();
-
-					classObject.nodes.errorStack.appendChild(error);
+					classObject.createAndAppendError('Select 2 or more pictures inorder to add to article');
 				}
 
 				return;
