@@ -1,4 +1,5 @@
 import { create } from './../utils';
+import Caption from './../components/caption';
 
 /**
  * Image box main class
@@ -60,9 +61,8 @@ export default class ImageBox {
 		/**
 		 * Represents caption.
 		 */
-		const captionContainer = create('div', [this.CSS.captionContainer], {}, [
-			document.createTextNode(caption)
-		]);
+		const captionContainer = new Caption({ caption }).render();
+		captionContainer.classList.add(this.CSS.captionContainer);
 
 		const wrapper = create('div', [this.CSS.wrapper], {}, [
 			image,
