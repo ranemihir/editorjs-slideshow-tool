@@ -9,7 +9,7 @@
     width: 100%;
     height: 100%;
 
-    object-fit:cover;
+    object-fit: cover;
 
     border-radius: 2px;
 }
@@ -30,9 +30,6 @@
 }
 
 .image-box-wrapper .caption-container{
-    word-wrap: break-word;
-    cursor: default;
-    
     position: absolute;
     bottom: 0;
     left: 0;
@@ -46,8 +43,6 @@
     line-height: 16px;
     color: #FAFAFA;
 
-    box-shadow: 4px 4px 0px 0px #000000 8% inset;
-
     padding: 16px;
 }
 
@@ -58,3 +53,25 @@
 .image-box-wrapper:hover .caption-container{
     opacity: 1;
 }
+
+.edit-button-in-image-box{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 4px;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+}
+
+.edit-button-in-image-box:hover{
+    background-color: #808080;
+}
+
+.edit-button-in-image-box svg{
+    width: 20px;
+    height: 16px;
+}
+

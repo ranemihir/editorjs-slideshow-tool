@@ -25,7 +25,9 @@ export default class ImageBox {
 		return {
 			wrapper: 'image-box-wrapper',
 			fadedBackground: 'faded-background',
-			captionContainer: 'caption-container'
+			captionContainer: 'caption-container',
+			editButtonInImageBox: 'edit-button-in-image-box',
+			textColor: '#FAFAFA'
 		};
 	}
 
@@ -54,15 +56,14 @@ export default class ImageBox {
 		});
 
 		/**
-		 * Black half transparent faded background container
+		 * Black half transparent faded background container.
 		 */
 		const fadedBackground = create('div', [this.CSS.fadedBackground]);
 
 		/**
-		 * Represents caption.
+		 * Creates the editable caption container.
 		 */
-		const captionContainer = new Caption({ caption }).render();
-		captionContainer.classList.add(this.CSS.captionContainer);
+		const captionContainer = this.createCaptionContainer(caption);
 
 		const wrapper = create('div', [this.CSS.wrapper], {}, [
 			image,
@@ -76,4 +77,34 @@ export default class ImageBox {
 			captionContainer
 		};
 	}
+
+	/**
+	 * Creates and returns editable caption holder for image box.
+	 * 
+	 * @param {string} caption - image caption
+	 * @returns
+	 */
+	createCaptionContainer(caption) {
+		/**
+		 * Creates caption component
+		 */
+		const captionContainer = new Caption({ caption }).render();
+
+		/**
+		 * Adds necessary styles specific to image box.
+		 */
+		captionContainer.classList.add(this.CSS.captionContainer);
+
+		captionContainer.children[0].style.color = this.CSS.textColor;
+
+		captionContainer.children[1].style.color = this.CSS.textColor;
+		captionContainer.children[1].classList.remove('edit-button');
+		captionContainer.children[1].classList.add(this.CSS.editButtonInImageBox);
+
+		/**
+		 * Returns caption container component.
+		 */
+		return captionContainer;
+	}
+
 }
