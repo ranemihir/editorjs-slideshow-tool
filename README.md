@@ -2,6 +2,11 @@
 
 Slideshow plugin for Editor.js: Allows users to add multiple images in a grid and slideshow layout.
 
+## Commands
+
+1. For production builds: `yarn build`
+2. For Development: `yarn build:dev`
+
 ## Configuration syntax with Editor.js
 
 ```javascript
@@ -23,7 +28,7 @@ tools: {
 },
 ```
 
-Checkout example/index.html for more information.
+Checkout `./example/index.html` for more information.
 
 ## Instructions for Publishing a private NPM package.
 
