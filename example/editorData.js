@@ -23,25 +23,25 @@ const editorData = {
 				layout: 'slideshow',
 				imagesOrder: [
 					{
-						name: 'photo-1502229608059-f3e3aaa0137a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxfDB8MXxyYW5kb218fHx8fHx8fA&ixlib=rb-1.2.1&q=80&w=1080',
+						name: 'v1609107277/f3a753739d7e4d3d7d8b.jpg',
 						caption: 'Man needs his difficulties because they are necessary to enjoy success.'
 					},
 					{
-						name: 'photo-1601946753062-25743b5e975b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxfDB8MXxyYW5kb218fHx8fHx8fA&ixlib=rb-1.2.1&q=80&w=1080',
+						name: 'v1609107277/797df573d96a44133fbc.jpg',
 						caption: 'Man needs his difficulties because they are necessary to enjoy success.'
 					},
 					{
-						name: 'photo-1493037875696-1f2eb8d732ed?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxfDB8MXxyYW5kb218fHx8fHx8fA&ixlib=rb-1.2.1&q=80&w=1080',
+						name: 'v1608940621/wj9p644aofpamwt0azqj.jpg',
 						caption: 'Man needs his difficulties because they are necessary to enjoy success.'
 					},
 					{
-						name: 'photo-1528314932175-3090c9f75a05?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxfDB8MXxyYW5kb218fHx8fHx8fA&ixlib=rb-1.2.1&q=80&w=1080',
+						name: 'v1608940620/bz9fctfjefpfgxde8cr4.jpg',
 						caption: 'Man needs his difficulties because they are necessary to enjoy success.'
 					},
 					{
-						name: 'photo-1501435764075-903868ebb179?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxfDB8MXxyYW5kb218fHx8fHx8fA&ixlib=rb-1.2.1&q=80&w=1080',
+						name: 'v1608939874/fdcbf89f3e75a504c024.jpg',
 						caption: 'Man needs his difficulties because they are necessary to enjoy success.'
-					}
+					},
 				],
 				layoutCaption: 'Slideshow Layout! :)'
 			}
@@ -58,19 +58,19 @@ const editorData = {
 				layout: 'grid',
 				imagesOrder: [
 					{
-						name: 'photo-1603695652248-bbca9a3452a5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxfDB8MXxyYW5kb218fHx8fHx8fA&ixlib=rb-1.2.1&q=80&w=1080',
+						name: 'v1608939871/lg7uhxatic0h38v1uwbo.jpg',
 						caption: 'Man needs his difficulties because they are necessary to enjoy success.'
 					},
 					{
-						name: 'photo-1528314932175-3090c9f75a05?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxfDB8MXxyYW5kb218fHx8fHx8fA&ixlib=rb-1.2.1&q=80&w=1080',
+						name: 'v1608766211/ndeu3lefec3nfzqv5w1z.jpg',
 						caption: 'Man needs his difficulties because they are necessary to enjoy success.'
 					},
 					{
-						name: 'photo-1571075927812-94bbdb62868e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxfDB8MXxyYW5kb218fHx8fHx8fA&ixlib=rb-1.2.1&q=80&w=1080',
+						name: 'v1606518952/d6b2ddafce8352e217dc.jpg',
 						caption: 'Man needs his difficulties because they are necessary to enjoy success.'
 					},
 					{
-						name: 'photo-1493037875696-1f2eb8d732ed?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxfDB8MXxyYW5kb218fHx8fHx8fA&ixlib=rb-1.2.1&q=80&w=1080',
+						name: 'v1606518952/368a01339dec0ebbcf4f.jpg',
 						caption: 'Man needs his difficulties because they are necessary to enjoy success.'
 					},
 				],
