@@ -98,14 +98,14 @@ export default class SlideshowPlugin {
 		let imagesOrder, layoutCaption;
 
 		if (this.ui.selectedLayout == 'grid') {
-			imagesOrder = this.ui.uiComponents.gridLayout.selectedImages;
+			imagesOrder = this.ui.uiComponents.gridLayout.returnImagesOrder();
 
 			/**
 			 * Cleaning the caption input using eEditor's on API
 			 */
 			layoutCaption = this.api.sanitizer.clean(this.ui.uiComponents.gridLayout.nodes.captionWrapper.firstChild.value);
 		} else {
-			imagesOrder = this.ui.uiComponents.slideshowLayout.selectedImages;
+			imagesOrder = this.ui.uiComponents.slideshowLayout.returnImagesOrder();
 			layoutCaption = this.api.sanitizer.clean(this.ui.uiComponents.slideshowLayout.nodes.captionWrapper.firstChild.value);
 		}
 

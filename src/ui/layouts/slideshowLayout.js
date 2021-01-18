@@ -15,9 +15,14 @@ export default class SlideshowLayout {
 		this.caption = caption || '';
 
 		/**
+		 * Creates image box objects for all selected images.
+		 */
+		this.imageBoxObjects = this.createAllImageBoxObjects(this.cloudinaryBaseUrl, this.selectedImages);
+
+		/**
 		 * Creates slideshow layout from selected images.
 		 */
-		this.nodes = this.createSlideshowLayout(this.cloudinaryBaseUrl, this.selectedImages, this.caption);
+		this.nodes = this.createSlideshowLayout(this.imageBoxObjects, this.caption);
 	}
 
 	/**
@@ -50,7 +55,7 @@ export default class SlideshowLayout {
 	 * 
 	 * @returns {object} nodes - all nodes related to slideshow layout 
 	 */
-	createSlideshowLayout(cloudinaryBaseUrl, images, caption) {
+	createSlideshowLayout(imageBoxObjects, caption) {
 		/**
 		 * Creates the main slideshow layout.
 		 */
@@ -59,7 +64,7 @@ export default class SlideshowLayout {
 		/**
 		 * Append all columns with image boxes to the layout.
 		 */
-		this.addImageBoxesToSlideshowLayout(cloudinaryBaseUrl, images, slideshowLayout);
+		this.addImageBoxesToSlideshowLayout(imageBoxObjects, slideshowLayout);
 
 		/**
 		 * Creates caption wrapper for storing and editing caption
@@ -84,23 +89,60 @@ export default class SlideshowLayout {
 	/**
 	 * Appends imageBoxes to the layout.
 	 * 
-	 * @param {Array[object]} images - all selected images {name, caption} to reprsent in layout by order
+	 * @param {Array[object]} imageBoxObjects - all selected images {name, caption} to reprsent in layout by order
 	 * @param {Element} slideshowLayout - main slideshow layout
 	 */
-	addImageBoxesToSlideshowLayout(cloudinaryBaseUrl, images, slideshowLayout) {
+	addImageBoxesToSlideshowLayout(imageBoxObjects, slideshowLayout) {
+		for (let i = 0; i < imageBoxObjects.length; i++) {
+			slideshowLayout.appendChild(imageBoxObjects[i].render());
+		}
+	}
+
+	/**
+	 * Creates all image boxes for selected images.
+	 * 
+	 * @returns {Array} imageBoxObjects - a list of all imageBox objects created from selected images.
+	 */
+	createAllImageBoxObjects(cloudinaryBaseUrl, images) {
+		const imageBoxObjects = [];
+
 		for (let i = 0; i < images.length; i++) {
-			const { name, caption } = images[i];
+			/**
+			 * Creates image box for every image.
+			 */
+			const imageBoxObject = new ImageBox({
+				cloudinaryBaseUrl: cloudinaryBaseUrl,
+				name: images[i].name,
+				caption: images[i].caption
+			});
 
 			/**
-			 * Creates and appends imageBox for all images in the array
+			 * Appends every imageBox object to an array.
 			 */
-			const imageBox = new ImageBox({
-				cloudinaryBaseUrl,
-				name,
-				caption
-			}).render();
-
-			slideshowLayout.appendChild(imageBox);
+			imageBoxObjects.push(imageBoxObject);
 		}
+
+		/**
+		 * Returns an array of imageBox objects.
+		 */
+		return imageBoxObjects;
+	}
+
+	/**
+	 * Returns all the images with updated captions.
+	 * 
+	 * @returns {Array} imagesOrder - all image objects.
+	 */
+	returnImagesOrder() {
+		const imagesOrder = [];
+
+		for (let i = 0; i < this.imageBoxObjects.length; i++) {
+			const name = this.selectedImages[i].name;
+			const caption = this.imageBoxObjects[i].nodes.captionContainer.firstChild.value;
+
+			imagesOrder.push({ name, caption });
+		}
+
+		return imagesOrder;
 	}
 }

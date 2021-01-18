@@ -17,9 +17,14 @@ export default class GridLayout {
 		this.caption = caption || '';
 
 		/**
+		 * Creates image box objects for all selected images.
+		 */
+		this.imageBoxObjects = this.createAllImageBoxObjects(this.cloudinaryBaseUrl, this.selectedImages);
+
+		/**
 		 * Creates grid layout from selected images.
 		 */
-		this.nodes = this.createGridLayout(this.cloudinaryBaseUrl, this.selectedImages, this.caption);
+		this.nodes = this.createGridLayout(this.imageBoxObjects, this.caption);
 	}
 
 	/**
@@ -46,11 +51,11 @@ export default class GridLayout {
 	/**
 	 * Creates and returns main grid layout
 	 * 
-	 * @param {Array[object]} images - all selected images {name, caption} to reprsent in layout by order
+	 * @param {Array[object]} imageBoxObjects - a list imageBox objects of all selected images.
 	 * 
 	 * @returns {object} nodes - all nodes related to grid layout 
 	 */
-	createGridLayout(cloudinaryBaseUrl, images, caption) {
+	createGridLayout(imageBoxObjects, caption) {
 		/**
 		 * Creates the main grid layout.
 		 */
@@ -59,7 +64,7 @@ export default class GridLayout {
 		/**
 		 * Append all columns with image boxes to the layout.
 		 */
-		this.addColumnsToGridLayout(cloudinaryBaseUrl, images, gridLayout);
+		this.addColumnsToGridLayout(imageBoxObjects, gridLayout);
 
 		/**
 		 * Creates caption container for storing caption
@@ -88,7 +93,7 @@ export default class GridLayout {
 	 * @param {Array[object]} images - all selected images {name, caption} to reprsent in layout by order
 	 * @param {Element} gridLayout - main grid layout
 	 */
-	addColumnsToGridLayout(cloudinaryBaseUrl, images, gridLayout) {
+	addColumnsToGridLayout(imageBoxObjects, gridLayout) {
 		/**
 		 * Default number of columns to be create din the grid.
 		 */
@@ -104,19 +109,8 @@ export default class GridLayout {
 
 		let currCol = 0;
 
-		for (let i = 0; i < images.length; i++) {
-			const { name, caption } = images[i];
-
-			/**
-			 * Creates and appends imageBox for all images in the array
-			 */
-			const imageBox = new ImageBox({
-				cloudinaryBaseUrl,
-				name,
-				caption
-			}).render();
-
-			gridLayout.children[currCol].appendChild(imageBox);
+		for (let i = 0; i < imageBoxObjects.length; i++) {
+			gridLayout.children[currCol].appendChild(imageBoxObjects[i].render());
 
 			/**
 			 * Every new image box is appended in a new column eveytime
@@ -124,5 +118,53 @@ export default class GridLayout {
 			 */
 			currCol = parseInt((currCol + 1) % NUMBER_OF_COLS);
 		}
+	}
+
+	/**
+	 * Creates all image boxes for selected images.
+	 * 
+	 * @returns {Array} imageBoxObjects - a list of all imageBox objects created from selected images.
+	 */
+	createAllImageBoxObjects(cloudinaryBaseUrl, images) {
+		const imageBoxObjects = [];
+
+		for (let i = 0; i < images.length; i++) {
+			/**
+			 * Creates image box for every image.
+			 */
+			const imageBoxObject = new ImageBox({
+				cloudinaryBaseUrl: cloudinaryBaseUrl,
+				name: images[i].name,
+				caption: images[i].caption
+			});
+
+			/**
+			 * Appends every imageBox object to an array.
+			 */
+			imageBoxObjects.push(imageBoxObject);
+		}
+
+		/**
+		 * Returns an array of imageBox objects.
+		 */
+		return imageBoxObjects;
+	}
+
+	/**
+	 * Returns all the images with updated captions.
+	 * 
+	 * @returns {Array} imagesOrder - all image objects.
+	 */
+	returnImagesOrder() {
+		const imagesOrder = [];
+
+		for (let i = 0; i < this.imageBoxObjects.length; i++) {
+			const name = this.selectedImages[i].name;
+			const caption = this.imageBoxObjects[i].nodes.captionContainer.firstChild.value;
+
+			imagesOrder.push({ name, caption });
+		}
+
+		return imagesOrder;
 	}
 }
