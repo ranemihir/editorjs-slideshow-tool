@@ -2,7 +2,7 @@
   "name": "editorjs-slideshow",
   "version": "1.0.0",
   "description": "Slideshow plugin for Editor.js, allows users to add multiple images in a grid and slideshow layout.",
-  "main": "index.js",
+  "main": "src/bundle.js",
   "scripts": {
     "build": "webpack --mode production",
     "build:dev": "webpack --mode development --watch",
