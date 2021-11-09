@@ -2,13 +2,13 @@
 
 Slideshow plugin for Editor.js: Allows users to add multiple images in a grid and slideshow layout.
 
-![Screenshot1](https://github.com/ranemihir/editorjs-slideshow-tool/blob/main/1.png)
+![Screenshot1](https://github.com/ranemihir/editorjs-slideshow-tool/blob/master/1.png)
 
-![Screenshot2](https://github.com/ranemihir/editorjs-slideshow-tool/blob/main/2.png)
+![Screenshot2](https://github.com/ranemihir/editorjs-slideshow-tool/blob/master/2.png)
 
-![Screenshot3](https://github.com/ranemihir/editorjs-slideshow-tool/blob/main/3.png)
+![Screenshot3](https://github.com/ranemihir/editorjs-slideshow-tool/blob/master/3.png)
 
-![Screenshot4](https://github.com/ranemihir/editorjs-slideshow-tool/blob/main/4.png)
+![Screenshot4](https://github.com/ranemihir/editorjs-slideshow-tool/blob/master/4.png)
 
 
 ## Commands
